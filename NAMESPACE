@@ -2,6 +2,7 @@
 
 export(make.crosstab)
 export(make.crosstab.wave)
+export(make.topline.table)
 import(dplyr)
 import(stringr)
 importFrom(labelled,to_factor)
