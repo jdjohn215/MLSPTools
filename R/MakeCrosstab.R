@@ -16,6 +16,7 @@
 #' @import stringr
 #' @importFrom labelled to_factor
 #' @importFrom tidyr spread
+#' @importFrom tidyr gather
 #'
 #' @examples
 #' make.crosstab(x = zpid3, y = g40v2, mulaw = df, remove = c("don't know", "refused"))
