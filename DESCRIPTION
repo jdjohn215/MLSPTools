@@ -1,11 +1,10 @@
 Package: MLSPTools
 Type: Package
-Title: What the Package Does (Title Case)
-Version: 0.1.0
-Author: Who wrote it
-Maintainer: The package maintainer <yourself@somewhere.net>
-Description: More about what it does (maybe more than one line)
-    Use four spaces when indenting paragraphs within the Description.
-License: What license is it under?
+Title: Internal tools for use with the Marquette Law Poll
+Version: 0.0.0.9000
+Author: John Johnson
+Maintainer: The package maintainer <john.d.johnson@marquette.edu>
+Description: Functions for creating standard analysis.
+License: none
 Encoding: UTF-8
 LazyData: true
