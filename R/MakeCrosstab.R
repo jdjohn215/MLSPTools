@@ -44,11 +44,12 @@ make.crosstab <- function(x, y, mulaw, remove){
     group_by(!!x) %>%
     mutate(total = sum(zwave_weight)) %>%
     # Calculate proportions
-    group_by(" " := !!x, !!y) %>%
+    group_by(!!x, !!y) %>%
     summarise(pct = (sum(zwave_weight)/first(total))*100) %>%
     # Remove values included in "remove" string
     filter(!str_to_upper(!!x) %in% str_to_upper(remove),
            !str_to_upper(!!y) %in% str_to_upper(remove)) %>%
     # Spread so x is rows and y is columns
-    spread(key = !!y, value = pct, fill = 0)
+    spread(key = !!y, value = pct, fill = 0) %>%
+    rename(" " = !!x)
 }
