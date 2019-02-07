@@ -44,7 +44,7 @@ make.topline.table <- function(varnames, qtext, remove, mulaw){
     inner_join(d.names, by = c("variable" = "varnames")) %>%
     group_by(qtext) %>%
     mutate(total = sum(zwave_weight)) %>%
-    group_by(qtext, response) %>%
+    group_by(" " = qtext, response) %>%
     summarise(pct = (sum(zwave_weight)/first(total))*100) %>%
     spread(key = response, value = pct, fill = 0)
 }
