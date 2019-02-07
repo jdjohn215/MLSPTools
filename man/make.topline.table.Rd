@@ -4,12 +4,12 @@
 \alias{make.topline.table}
 \title{Make a weighted table of toplines for questions in a series}
 \usage{
-make.topline.table(vars, text, remove, mulaw)
+make.topline.table(varnames, qtext, remove, mulaw)
 }
 \arguments{
-\item{vars}{a character vector of variable names}
+\item{varnames}{a character vector of variable names}
 
-\item{text}{a character vector of the descriptive text for each variable}
+\item{qtext}{a character vector of the descriptive text for each variable}
 
 \item{remove}{An optional character vector of values to remove from final table (e.g. DK/Ref).
 This will not affect any calculations made. The vector is not case-sensitive.}
@@ -28,7 +28,7 @@ This function returns a table with 1 row for each survey question and columns fo
  responses. It is designed for things like favorability questions.
 }
 \examples{
-make.topline.table(vars = c("f111", "f112", "f113", "f114", "f115", "f116", "f117", "f118"),
+make.topline.table(varnames = c("f111", "f112", "f113", "f114", "f115", "f116", "f117", "f118"),
 text = c("Joe Biden", "Bernie Sanders", "Kamala Harris", "Elizabeth Warren",
 "Cory Booker", "Beto O'Rourke", "Amy Klobuchar", "Julian Castro"),
 mulaw = df)
