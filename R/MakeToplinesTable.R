@@ -46,5 +46,5 @@ make.topline.table <- function(varnames, qtext, remove, mulaw){
     mutate(total = sum(zwave_weight)) %>%
     group_by(qtext, response) %>%
     summarise(pct = (sum(zwave_weight)/first(total))*100) %>%
-    spread(key = response, value = pct)
+    spread(key = response, value = pct, fill = 0)
 }

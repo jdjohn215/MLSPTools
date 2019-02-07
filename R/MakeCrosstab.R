@@ -50,5 +50,5 @@ make.crosstab <- function(x, y, mulaw, remove){
     filter(!str_to_upper(!!x) %in% str_to_upper(remove),
            !str_to_upper(!!y) %in% str_to_upper(remove)) %>%
     # Spread so x is rows and y is columns
-    spread(key = !!y, value = pct)
+    spread(key = !!y, value = pct, fill = 0)
 }
