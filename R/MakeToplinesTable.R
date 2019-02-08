@@ -36,9 +36,9 @@ make.topline.table <- function(varnames, qtext, remove, mulaw){
   # Make data.frame of names
   d.names <- data.frame(varnames, qtext)
 
-  mulaw %>%
+  d <- mulaw %>%
     select(zwave_weight, varnames) %>%
-    mutate_if(is.labelled, to_factor) %>%
+    mutate_if(is.labelled, to_factor, levels = "prefixed") %>%
     gather(key = "variable", value = "response", - zwave_weight) %>%
     filter(!is.na(response)) %>%
     inner_join(d.names, by = c("variable" = "varnames")) %>%
@@ -47,4 +47,8 @@ make.topline.table <- function(varnames, qtext, remove, mulaw){
     group_by(" " = qtext, response) %>%
     summarise(pct = (sum(zwave_weight)/first(total))*100) %>%
     spread(key = response, value = pct, fill = 0)
+
+  # Remove numeric prefixes from column names
+  colnames(d)[str_sub(colnames(d), 1, 1) == "["] <- word(colnames(d)[str_sub(colnames(d), 1, 1) == "["], 2, -1)
+  d
 }
