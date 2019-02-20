@@ -48,5 +48,5 @@ mlsp <- function(mulaw, variable, response){
       summarise(pct = sum(zwave_weight)/first(total))
   }
 
-  round((d.temp$pct)*100, digits = 0)
+  round((d.temp$pct)*100, digits = 0)[1]
 }
