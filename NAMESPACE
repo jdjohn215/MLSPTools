@@ -3,6 +3,7 @@
 export(make.crosstab)
 export(make.crosstab.wave)
 export(make.topline.table)
+export(make.ts)
 export(mlsp)
 import(dplyr)
 import(stringr)
