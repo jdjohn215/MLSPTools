@@ -47,7 +47,7 @@ make.ts <- function(variable, mulaw, remove, format){
       mutate(total = sum(zwave_weight)) %>%
       # Calculate proportions
       group_by(zpolldatestr, !!variable) %>%
-      summarise(pct = sum(zwave_weight)/first(total)) %>%
+      summarise(pct = (sum(zwave_weight)/first(total))*100) %>%
       # Remove values included in "remove" string
       filter(!str_to_upper(!!variable) %in% str_to_upper(remove)) %>%
       # Spread so x is rows and y is columns
@@ -67,7 +67,7 @@ make.ts <- function(variable, mulaw, remove, format){
       mutate(total = sum(zwave_weight)) %>%
       # Calculate proportions
       group_by(zpolldatestr, !!variable) %>%
-      summarise(pct = sum(zwave_weight)/first(total)) %>%
+      summarise(pct = (sum(zwave_weight)/first(total))*100) %>%
       # Remove values included in "remove" string
       filter(!str_to_upper(!!variable) %in% str_to_upper(remove))
   }
