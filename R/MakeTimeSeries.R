@@ -51,7 +51,8 @@ make.ts <- function(variable, mulaw, remove, format){
       # Remove values included in "remove" string
       filter(!str_to_upper(!!variable) %in% str_to_upper(remove)) %>%
       # Spread so x is rows and y is columns
-      spread(key = !!variable, value = pct)
+      spread(key = !!variable, value = pct) %>%
+      rename(PollDate = zpolldatestr)
   }
 
   # Make long table
@@ -69,7 +70,8 @@ make.ts <- function(variable, mulaw, remove, format){
       group_by(zpolldatestr, !!variable) %>%
       summarise(pct = (sum(zwave_weight)/first(total))*100) %>%
       # Remove values included in "remove" string
-      filter(!str_to_upper(!!variable) %in% str_to_upper(remove))
+      filter(!str_to_upper(!!variable) %in% str_to_upper(remove)) %>%
+      rename(PollDate = zpolldatestr)
   }
 
   d.output
