@@ -4,7 +4,7 @@
 \alias{make.crosstab}
 \title{Make a weighted crosstab of row proportions}
 \usage{
-make.crosstab(x, y, mulaw, remove)
+make.crosstab(x, y, mulaw, remove, weight = zwave_weight)
 }
 \arguments{
 \item{x}{The independent variable}
@@ -15,6 +15,8 @@ make.crosstab(x, y, mulaw, remove)
 
 \item{remove}{An optional character vector of values to remove from final table (e.g. DK/Ref).
 This will not affect any calculations made. The vector is not case-sensitive.}
+
+\item{weight}{The weighting variable, defaults to zwave_weight}
 }
 \value{
 A dataframe.

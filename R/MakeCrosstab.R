@@ -9,6 +9,7 @@
 #' @param mulaw The data.frame containing the version of the integrated file you wish to use
 #' @param remove An optional character vector of values to remove from final table (e.g. DK/Ref).
 #' This will not affect any calculations made. The vector is not case-sensitive.
+#' @param weight The weighting variable, defaults to zwave_weight
 #'
 #' @return A dataframe.
 #' @export
@@ -22,10 +23,12 @@
 #' make.crosstab(x = zpid3, y = g40v2, mulaw = df, remove = c("don't know", "refused"))
 
 
-make.crosstab <- function(x, y, mulaw, remove){
+make.crosstab <- function(x, y, mulaw, remove,
+                          weight = zwave_weight){
   # Some Nonstandard Evaluation witchcraft I don't understand
   x <- enquo(x)
   y <- enquo(y)
+  weight <- enquo(weight)
 
   # if remove is missing replace with empty string
   if(missing(remove)){
@@ -42,10 +45,10 @@ make.crosstab <- function(x, y, mulaw, remove){
            !!y := to_factor(!!y)) %>%
     # Calculate denominator
     group_by(!!x) %>%
-    mutate(total = sum(zwave_weight)) %>%
+    mutate(total = sum(!!weight)) %>%
     # Calculate proportions
     group_by(!!x, !!y) %>%
-    summarise(pct = (sum(zwave_weight)/first(total))*100) %>%
+    summarise(pct = (sum(!!weight)/first(total))*100) %>%
     # Remove values included in "remove" string
     filter(!str_to_upper(!!x) %in% str_to_upper(remove),
            !str_to_upper(!!y) %in% str_to_upper(remove)) %>%
