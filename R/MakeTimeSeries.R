@@ -9,6 +9,8 @@
 #' @param mulaw The data.frame containing the version of the integrated file you wish to use
 #' @param remove An optional character vector of values to remove from final table (e.g. DK/Ref).
 #' @param format One of "wide" or "long", defaults to "wide"
+#' @param date The date variable, defaults to zpolldatestr
+#' @param weight The weight variable, defaults to zwave_weight
 #'
 #' @return A dataframe.
 #' @export

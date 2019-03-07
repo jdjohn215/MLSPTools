@@ -4,7 +4,8 @@
 \alias{make.ts}
 \title{Make a time series of a variable}
 \usage{
-make.ts(variable, mulaw, remove, format)
+make.ts(variable, mulaw, remove, format = "wide", date = zpolldatestr,
+  weight = zwave_weight)
 }
 \arguments{
 \item{variable}{The variable, unquoted}
@@ -14,6 +15,10 @@ make.ts(variable, mulaw, remove, format)
 \item{remove}{An optional character vector of values to remove from final table (e.g. DK/Ref).}
 
 \item{format}{One of "wide" or "long", defaults to "wide"}
+
+\item{date}{The date variable, defaults to zpolldatestr}
+
+\item{weight}{The weight variable, defaults to zwave_weight}
 }
 \value{
 A dataframe.
