@@ -14,7 +14,7 @@
 #' @import stringr
 #' @examples
 #' mlsp(mulaw = df, variable = g40, response = 1)
-#' mlsp(mulaw = df, variable = g40, response = "approve)
+#' mlsp(mulaw = df, variable = g40, response = "approve")
 #'
 
 mlsp <- function(mulaw, variable, response,

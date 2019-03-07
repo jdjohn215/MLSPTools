@@ -22,3 +22,7 @@ This function is a wrapper for either the words() or Words() function from
  the english package. It defaults to upper case, but lower case can
  be set using case = lower. print.word() also adds a hyphen between words.
 }
+\examples{
+print.word(42)
+print.word(42, case = "lower")
+}

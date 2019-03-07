@@ -11,6 +11,8 @@
 #' @param mulaw The data.frame containing the version of the integrated file you wish to use
 #' @param remove An optional character vector of values to remove from final table (e.g. DK/Ref).
 #' This will not affect any calculations made. The vector is not case-sensitive.
+#' @param date The date variable, defaults to zpolldatestr
+#' @param weight The weighting variable, defaults to zwave_weight
 #'
 #' @return A dataframe.
 #' @export
@@ -30,10 +32,13 @@
 #'        geom_smoth() +
 #'        facet_wrap(facets = vars(zpid3))
 
-make.crosstab.wave <- function(x, y, mulaw, remove){
+make.crosstab.wave <- function(x, y, mulaw, remove,
+                               date = zpolldatestr, weight = zwave_weight){
   # Some Nonstandard Evaluation witchcraft I don't understand
   x <- enquo(x)
   y <- enquo(y)
+  date <- enquo(date)
+  weight <- enquo(weight)
 
   # if remove is missing replace with empty string
   if(missing(remove)){
@@ -48,13 +53,13 @@ make.crosstab.wave <- function(x, y, mulaw, remove){
     # Convert to ordered factors
     mutate(!!x := to_factor(!!x),
            !!y := to_factor(!!y),
-           zpolldatestr = as.Date(zpolldatestr)) %>%
+           !!date := as.Date(!!date)) %>%
     # Calculate denominator
-    group_by(!!x, zpolldatestr) %>%
-    mutate(total = sum(zwave_weight)) %>%
+    group_by(!!x, !!date) %>%
+    mutate(total = sum(!!weight)) %>%
     # Calculate proportions
-    group_by(!!x, !!y, zpolldatestr) %>%
-    summarise(pct = sum(zwave_weight)/first(total)) %>%
+    group_by(!!x, !!y, !!date) %>%
+    summarise(pct = sum(!!weight)/first(total)) %>%
     # Remove values included in "remove" string
     filter(!str_to_upper(!!x) %in% str_to_upper(remove),
            !str_to_upper(!!y) %in% str_to_upper(remove))

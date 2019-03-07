@@ -11,23 +11,29 @@
 #' @param mulaw The data.frame containing the version of the integrated file you wish to use
 #' @param remove An optional character vector of values to remove from final table (e.g. DK/Ref).
 #' This will not affect any calculations made. The vector is not case-sensitive.
+#' @param weight The weighting variable, defaults to zwave_weight
 #'
 #' @return A dataframe.
 #' @export
 #' @import dplyr
 #' @import stringr
 #' @importFrom labelled to_factor
+#' @importFrom labelled is.labelled
 #' @importFrom tidyr spread
 #' @importFrom tidyr gather
 #'
 #' @examples
 #' make.topline.table(varnames = c("f111", "f112", "f113", "f114", "f115", "f116", "f117", "f118"),
-#' text = c("Joe Biden", "Bernie Sanders", "Kamala Harris", "Elizabeth Warren",
+#' qtext = c("Joe Biden", "Bernie Sanders", "Kamala Harris", "Elizabeth Warren",
 #' "Cory Booker", "Beto O'Rourke", "Amy Klobuchar", "Julian Castro"),
 #' mulaw = df)
 #'
 
-make.topline.table <- function(varnames, qtext, remove, mulaw){
+make.topline.table <- function(varnames, qtext, remove, mulaw,
+                               weight = zwave_weight){
+
+  weight <- enquo(weight)
+
   # if remove is missing replace with empty string
   if(missing(remove)){
     remove = ""
@@ -37,15 +43,15 @@ make.topline.table <- function(varnames, qtext, remove, mulaw){
   d.names <- data.frame(varnames, qtext)
 
   d <- mulaw %>%
-    select(zwave_weight, varnames) %>%
+    select(!!weight, varnames) %>%
     mutate_if(is.labelled, to_factor, levels = "prefixed") %>%
-    gather(key = "variable", value = "response", - zwave_weight) %>%
+    gather(key = "variable", value = "response", - !!weight) %>%
     filter(!is.na(response)) %>%
     inner_join(d.names, by = c("variable" = "varnames")) %>%
     group_by(qtext) %>%
-    mutate(total = sum(zwave_weight)) %>%
+    mutate(total = sum(!!weight)) %>%
     group_by(" " = qtext, response) %>%
-    summarise(pct = (sum(zwave_weight)/first(total))*100) %>%
+    summarise(pct = (sum(!!weight)/first(total))*100) %>%
     spread(key = response, value = pct, fill = 0)
 
   # Remove numeric prefixes from column names

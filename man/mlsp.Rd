@@ -22,3 +22,8 @@ A dataframe.
 \code{mlsp} returns an integer value for a marginal. It's the percent of valid respondents
 giving the specified response.
 }
+\examples{
+mlsp(mulaw = df, variable = g40, response = 1)
+mlsp(mulaw = df, variable = g40, response = "approve")
+
+}

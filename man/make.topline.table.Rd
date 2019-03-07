@@ -4,7 +4,7 @@
 \alias{make.topline.table}
 \title{Make a weighted table of toplines for questions in a series}
 \usage{
-make.topline.table(varnames, qtext, remove, mulaw)
+make.topline.table(varnames, qtext, remove, mulaw, weight = zwave_weight)
 }
 \arguments{
 \item{varnames}{a character vector of variable names}
@@ -15,6 +15,8 @@ make.topline.table(varnames, qtext, remove, mulaw)
 This will not affect any calculations made. The vector is not case-sensitive.}
 
 \item{mulaw}{The data.frame containing the version of the integrated file you wish to use}
+
+\item{weight}{The weighting variable, defaults to zwave_weight}
 }
 \value{
 A dataframe.
@@ -29,7 +31,7 @@ This function returns a table with 1 row for each survey question and columns fo
 }
 \examples{
 make.topline.table(varnames = c("f111", "f112", "f113", "f114", "f115", "f116", "f117", "f118"),
-text = c("Joe Biden", "Bernie Sanders", "Kamala Harris", "Elizabeth Warren",
+qtext = c("Joe Biden", "Bernie Sanders", "Kamala Harris", "Elizabeth Warren",
 "Cory Booker", "Beto O'Rourke", "Amy Klobuchar", "Julian Castro"),
 mulaw = df)
 

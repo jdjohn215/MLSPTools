@@ -18,7 +18,7 @@
 #'
 #' @examples
 #' print.word(42)
-#' print.word(42, case = "lower)
+#' print.word(42, case = "lower")
 
 print.word <- function(number, case){
   # set default case to upper
