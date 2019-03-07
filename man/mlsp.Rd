@@ -4,7 +4,7 @@
 \alias{mlsp}
 \title{Return a rounded marginal}
 \usage{
-mlsp(mulaw, variable, response)
+mlsp(mulaw, variable, response, weight = zwave_weight)
 }
 \arguments{
 \item{mulaw}{The data.frame containing the version of the integrated file you wish to use}
@@ -12,6 +12,8 @@ mlsp(mulaw, variable, response)
 \item{variable}{The unquoted variable name}
 
 \item{response}{The desired response. It can be either numeric or the value label.}
+
+\item{weight}{The weighting variable, defaults to zwave_weight}
 }
 \value{
 A dataframe.
