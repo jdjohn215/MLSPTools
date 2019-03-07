@@ -20,14 +20,13 @@
 #' @examples
 #' make.ts(variable = g2, mulaw = orig, remove = c("refused"), format = "long")
 #'
-make.ts <- function(variable, mulaw, remove, format){
-  # set defaults
-  if(missing(format)){
-    format = "wide"
-  }
+make.ts <- function(variable, mulaw, remove, format = "wide",
+                    date = zpolldatestr, weight = zwave_weight){
 
   # Some Nonstandard Evaluation witchcraft I don't understand
   variable <- enquo(variable)
+  date <- enquo(date)
+  weight <- enquo(weight)
 
   # if remove is missing replace with empty string
   if(missing(remove)){
@@ -41,18 +40,18 @@ make.ts <- function(variable, mulaw, remove, format){
       filter(!is.na(!!variable)) %>%
       # Convert to ordered factors
       mutate(!!variable := to_factor(!!variable),
-             zpolldatestr = as.Date(as.character(zpolldatestr))) %>%
+             !!date := as.Date(as.character(!!date))) %>%
       # Calculate denominator
-      group_by(zpolldatestr) %>%
-      mutate(total = sum(zwave_weight)) %>%
+      group_by(!!date) %>%
+      mutate(total = sum(!!weight)) %>%
       # Calculate proportions
-      group_by(zpolldatestr, !!variable) %>%
-      summarise(pct = (sum(zwave_weight)/first(total))*100) %>%
+      group_by(!!date, !!variable) %>%
+      summarise(pct = (sum(!!weight)/first(total))*100) %>%
       # Remove values included in "remove" string
       filter(!str_to_upper(!!variable) %in% str_to_upper(remove)) %>%
       # Spread so x is rows and y is columns
       spread(key = !!variable, value = pct) %>%
-      rename(PollDate = zpolldatestr)
+      rename(PollDate = !!date)
   }
 
   # Make long table
@@ -62,16 +61,16 @@ make.ts <- function(variable, mulaw, remove, format){
       filter(!is.na(!!variable)) %>%
       # Convert to ordered factors
       mutate(!!variable := to_factor(!!variable),
-             zpolldatestr = as.Date(as.character(zpolldatestr))) %>%
+             !!date := as.Date(as.character(!!date))) %>%
       # Calculate denominator
       group_by(zpolldatestr) %>%
-      mutate(total = sum(zwave_weight)) %>%
+      mutate(total = sum(!!weight)) %>%
       # Calculate proportions
-      group_by(zpolldatestr, !!variable) %>%
-      summarise(pct = (sum(zwave_weight)/first(total))*100) %>%
+      group_by(!!date, !!variable) %>%
+      summarise(pct = (sum(!!weight)/first(total))*100) %>%
       # Remove values included in "remove" string
       filter(!str_to_upper(!!variable) %in% str_to_upper(remove)) %>%
-      rename(PollDate = zpolldatestr)
+      rename(PollDate = !!date)
   }
 
   d.output
