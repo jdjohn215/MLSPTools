@@ -52,8 +52,7 @@ make.crosstab.wave <- function(x, y, mulaw, remove,
            !is.na(!!y)) %>%
     # Convert to ordered factors
     mutate(!!x := to_factor(!!x),
-           !!y := to_factor(!!y),
-           !!date := as.Date(!!date)) %>%
+           !!y := to_factor(!!y)) %>%
     # Calculate denominator
     group_by(!!x, !!date) %>%
     mutate(total = sum(!!weight)) %>%
