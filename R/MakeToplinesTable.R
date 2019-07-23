@@ -12,6 +12,7 @@
 #' @param remove An optional character vector of values to remove from final table (e.g. DK/Ref).
 #' This will not affect any calculations made. The vector is not case-sensitive.
 #' @param weight The weighting variable, defaults to zwave_weight
+#' @param n Logical. Controls whether a row total column is included
 #'
 #' @return A dataframe.
 #' @export
@@ -30,7 +31,7 @@
 #'
 
 make.topline.table <- function(varnames, qtext, remove, mulaw,
-                               weight = zwave_weight){
+                               weight = zwave_weight, n = FALSE){
 
   weight <- enquo(weight)
 
@@ -51,9 +52,16 @@ make.topline.table <- function(varnames, qtext, remove, mulaw,
     group_by(qtext) %>%
     mutate(total = sum(!!weight)) %>%
     group_by(" " = qtext, response) %>%
-    summarise(pct = (sum(!!weight)/first(total))*100) %>%
+    summarise(pct = (sum(!!weight)/first(total))*100,
+              n = first(total)) %>%
     spread(key = response, value = pct, fill = 0) %>%
+    # move total row to end
+    select(-one_of("n"), one_of("n")) %>%
     ungroup()
+
+  if(n == FALSE){
+    d <- select(d, -n)
+  }
 
   # Remove numeric prefixes from column names
   colnames(d)[str_sub(colnames(d), 1, 1) == "["] <- word(colnames(d)[str_sub(colnames(d), 1, 1) == "["], 2, -1)

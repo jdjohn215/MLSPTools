@@ -4,7 +4,8 @@
 \alias{make.topline.table}
 \title{Make a weighted table of toplines for questions in a series}
 \usage{
-make.topline.table(varnames, qtext, remove, mulaw, weight = zwave_weight)
+make.topline.table(varnames, qtext, remove, mulaw, weight = zwave_weight,
+  n = FALSE)
 }
 \arguments{
 \item{varnames}{a character vector of variable names}
@@ -17,6 +18,8 @@ This will not affect any calculations made. The vector is not case-sensitive.}
 \item{mulaw}{The data.frame containing the version of the integrated file you wish to use}
 
 \item{weight}{The weighting variable, defaults to zwave_weight}
+
+\item{n}{Logical. Controls whether a row total column is included}
 }
 \value{
 A dataframe.
