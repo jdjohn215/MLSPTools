@@ -53,7 +53,8 @@ make.ts <- function(variable, mulaw, remove, format = "wide",
       filter(!str_to_upper(!!variable) %in% str_to_upper(remove)) %>%
       # Spread so x is rows and y is columns
       spread(key = !!variable, value = pct) %>%
-      rename(PollDate = !!date)
+      rename(PollDate = !!date) %>%
+      ungroup()
   }
 
   # Make long table
@@ -72,7 +73,8 @@ make.ts <- function(variable, mulaw, remove, format = "wide",
       summarise(pct = (sum(!!weight)/first(total))*100) %>%
       # Remove values included in "remove" string
       filter(!str_to_upper(!!variable) %in% str_to_upper(remove)) %>%
-      rename(PollDate = !!date)
+      rename(PollDate = !!date) %>%
+      ungroup()
   }
 
   d.output

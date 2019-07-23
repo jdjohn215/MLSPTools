@@ -61,5 +61,6 @@ make.crosstab.wave <- function(x, y, mulaw, remove,
     summarise(pct = sum(!!weight)/first(total)) %>%
     # Remove values included in "remove" string
     filter(!str_to_upper(!!x) %in% str_to_upper(remove),
-           !str_to_upper(!!y) %in% str_to_upper(remove))
+           !str_to_upper(!!y) %in% str_to_upper(remove)) %>%
+    ungroup()
 }

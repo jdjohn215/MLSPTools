@@ -52,7 +52,8 @@ make.topline.table <- function(varnames, qtext, remove, mulaw,
     mutate(total = sum(!!weight)) %>%
     group_by(" " = qtext, response) %>%
     summarise(pct = (sum(!!weight)/first(total))*100) %>%
-    spread(key = response, value = pct, fill = 0)
+    spread(key = response, value = pct, fill = 0) %>%
+    ungroup()
 
   # Remove numeric prefixes from column names
   colnames(d)[str_sub(colnames(d), 1, 1) == "["] <- word(colnames(d)[str_sub(colnames(d), 1, 1) == "["], 2, -1)
