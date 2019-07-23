@@ -11,6 +11,7 @@
 #' @param format One of "wide" or "long", defaults to "wide"
 #' @param date The date variable, defaults to zpolldatestr
 #' @param weight The weight variable, defaults to zwave_weight
+#' @param n Logical, determines if a row total is included or not
 #'
 #' @return A dataframe.
 #' @export
@@ -23,7 +24,8 @@
 #' make.ts(variable = g2, mulaw = orig, remove = c("refused"), format = "long")
 #'
 make.ts <- function(variable, mulaw, remove, format = "wide",
-                    date = zpolldatestr, weight = zwave_weight){
+                    date = zpolldatestr, weight = zwave_weight,
+                    n = FALSE){
 
   # Some Nonstandard Evaluation witchcraft I don't understand
   variable <- enquo(variable)
@@ -48,13 +50,20 @@ make.ts <- function(variable, mulaw, remove, format = "wide",
       mutate(total = sum(!!weight)) %>%
       # Calculate proportions
       group_by(!!date, !!variable) %>%
-      summarise(pct = (sum(!!weight)/first(total))*100) %>%
+      summarise(pct = (sum(!!weight)/first(total))*100,
+                n = first(total)) %>%
       # Remove values included in "remove" string
       filter(!str_to_upper(!!variable) %in% str_to_upper(remove)) %>%
       # Spread so x is rows and y is columns
       spread(key = !!variable, value = pct) %>%
       rename(PollDate = !!date) %>%
+      # move total row to end
+      select(-one_of("n"), one_of("n")) %>%
       ungroup()
+
+    if(n == FALSE){
+      d.output <- select(d.output, -n)
+    }
   }
 
   # Make long table
@@ -70,11 +79,16 @@ make.ts <- function(variable, mulaw, remove, format = "wide",
       mutate(total = sum(!!weight)) %>%
       # Calculate proportions
       group_by(!!date, !!variable) %>%
-      summarise(pct = (sum(!!weight)/first(total))*100) %>%
+      summarise(pct = (sum(!!weight)/first(total))*100,
+                n = first(total)) %>%
       # Remove values included in "remove" string
       filter(!str_to_upper(!!variable) %in% str_to_upper(remove)) %>%
       rename(PollDate = !!date) %>%
       ungroup()
+
+    if(n == FALSE){
+      d.output <- select(d.output, -n)
+    }
   }
 
   d.output

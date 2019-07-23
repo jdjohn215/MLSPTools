@@ -5,7 +5,7 @@
 \title{Make a time series of a variable}
 \usage{
 make.ts(variable, mulaw, remove, format = "wide", date = zpolldatestr,
-  weight = zwave_weight)
+  weight = zwave_weight, n = FALSE)
 }
 \arguments{
 \item{variable}{The variable, unquoted}
@@ -19,6 +19,8 @@ make.ts(variable, mulaw, remove, format = "wide", date = zpolldatestr,
 \item{date}{The date variable, defaults to zpolldatestr}
 
 \item{weight}{The weight variable, defaults to zwave_weight}
+
+\item{n}{Logical, determines if a row total is included or not}
 }
 \value{
 A dataframe.
