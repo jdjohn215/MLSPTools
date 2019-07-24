@@ -44,7 +44,7 @@ make.ts <- function(variable, mulaw, remove, format = "wide",
       filter(!is.na(!!variable)) %>%
       # Convert to ordered factors
       mutate(!!variable := to_factor(!!variable),
-             !!date := as.Date(as.character(!!date))) %>%
+             !!date := as.character(!!date)) %>%
       # Calculate denominator
       group_by(!!date) %>%
       mutate(total = sum(!!weight)) %>%
@@ -73,7 +73,7 @@ make.ts <- function(variable, mulaw, remove, format = "wide",
       filter(!is.na(!!variable)) %>%
       # Convert to ordered factors
       mutate(!!variable := to_factor(!!variable),
-             !!date := as.Date(as.character(!!date))) %>%
+             !!date := as.character(!!date)) %>%
       # Calculate denominator
       group_by(zpolldatestr) %>%
       mutate(total = sum(!!weight)) %>%
