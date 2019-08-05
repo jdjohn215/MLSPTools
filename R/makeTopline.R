@@ -57,7 +57,7 @@ make.topline <- function(variable, mulaw, weight = zwave_weight,
            `Valid Percent` = valid.pct, `Cumulative Percent` = cum)
 
   if(n == FALSE){
-    d.output <- select(d.output, -n)
+    d.output <- select(d.output, -`Frequency`)
   }
 
   if(cumsum == FALSE){
