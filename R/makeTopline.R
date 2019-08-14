@@ -39,7 +39,7 @@ make.topline <- function(variable, mulaw, weight = zwave_weight,
     # remove waves in which question is not asked
     filter(zwave %in% valid.waves) %>%
     # Convert to ordered factors
-    mutate(!!variable := to_factor(!!variable),
+    mutate(!!variable := to_factor(!!variable, sort_levels = "values"),
            !!variable := forcats::fct_explicit_na(!!variable)) %>%
     # Calculate denominator
     mutate(total = sum(!!weight),

@@ -41,8 +41,8 @@ make.crosstab <- function(x, y, mulaw, remove,
     filter(!is.na(!!x),
            !is.na(!!y)) %>%
     # Convert to ordered factors
-    mutate(!!x := to_factor(!!x),
-           !!y := to_factor(!!y)) %>%
+    mutate(!!x := to_factor(!!x, sort_levels = "values"),
+           !!y := to_factor(!!y, sort_levels = "values")) %>%
     # Calculate denominator
     group_by(!!x) %>%
     mutate(total = sum(!!weight)) %>%
