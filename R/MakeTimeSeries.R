@@ -44,7 +44,7 @@ make.ts <- function(variable, mulaw, remove, format = "wide",
       filter(!is.na(!!variable)) %>%
       # Convert to ordered factors
       mutate(!!variable := to_factor(!!variable, sort_levels = "values"),
-             !!date := as.character(!!date)) %>%
+             !!date := to_factor(!!date)) %>%
       # Calculate denominator
       group_by(!!date) %>%
       mutate(total = sum(!!weight)) %>%
