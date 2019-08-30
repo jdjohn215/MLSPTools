@@ -10,6 +10,7 @@
 #' @param remove An optional character vector of values to remove from final table (e.g. DK/Ref).
 #' This will not affect any calculations made. The vector is not case-sensitive.
 #' @param weight The weighting variable, defaults to zwave_weight
+#' @param n logical, if TRUE a column of row totals is included
 #'
 #' @return A dataframe.
 #' @export
@@ -24,7 +25,7 @@
 
 
 make.crosstab <- function(x, y, mulaw, remove,
-                          weight = zwave_weight){
+                          weight = zwave_weight, n = TRUE){
   # Some Nonstandard Evaluation witchcraft I don't understand
   x <- enquo(x)
   y <- enquo(y)
@@ -36,7 +37,7 @@ make.crosstab <- function(x, y, mulaw, remove,
   }
 
   # Make
-  mulaw %>%
+  d.output <- mulaw %>%
     # Remove missing cases
     filter(!is.na(!!x),
            !is.na(!!y)) %>%
@@ -48,12 +49,21 @@ make.crosstab <- function(x, y, mulaw, remove,
     mutate(total = sum(!!weight)) %>%
     # Calculate proportions
     group_by(!!x, !!y) %>%
-    summarise(pct = (sum(!!weight)/first(total))*100) %>%
+    summarise(pct = (sum(!!weight)/first(total))*100,
+              n = first(total)) %>%
     # Remove values included in "remove" string
     filter(!str_to_upper(!!x) %in% str_to_upper(remove),
            !str_to_upper(!!y) %in% str_to_upper(remove)) %>%
     # Spread so x is rows and y is columns
     spread(key = !!y, value = pct, fill = 0) %>%
     rename(" " = !!x) %>%
+    # move total row to end
+    select(-one_of("n"), one_of("n")) %>%
     ungroup()
+
+  if(n == FALSE){
+    d.output <- d.output %>%
+      select(-n)
+  }
+  d.output
 }
