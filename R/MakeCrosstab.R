@@ -11,6 +11,7 @@
 #' This will not affect any calculations made. The vector is not case-sensitive.
 #' @param weight The weighting variable, defaults to zwave_weight
 #' @param n logical, if TRUE a column of row totals is included
+#' @param cell logical, if TRUE cell percentages will be returned rather than row percentages (the default)
 #'
 #' @return A dataframe.
 #' @export
@@ -25,7 +26,8 @@
 
 
 make.crosstab <- function(x, y, mulaw, remove,
-                          weight = zwave_weight, n = TRUE){
+                          weight = zwave_weight, n = TRUE,
+                          cell = FALSE){
   # Some Nonstandard Evaluation witchcraft I don't understand
   x <- enquo(x)
   y <- enquo(y)
@@ -36,34 +38,66 @@ make.crosstab <- function(x, y, mulaw, remove,
     remove = ""
   }
 
-  # Make
-  d.output <- mulaw %>%
-    # Remove missing cases
-    filter(!is.na(!!x),
-           !is.na(!!y)) %>%
-    # Convert to ordered factors
-    mutate(!!x := to_factor(!!x, sort_levels = "values"),
-           !!y := to_factor(!!y, sort_levels = "values")) %>%
-    # Calculate denominator
-    group_by(!!x) %>%
-    mutate(total = sum(!!weight)) %>%
-    # Calculate proportions
-    group_by(!!x, !!y) %>%
-    summarise(pct = (sum(!!weight)/first(total))*100,
-              n = first(total)) %>%
-    # Remove values included in "remove" string
-    filter(!str_to_upper(!!x) %in% str_to_upper(remove),
-           !str_to_upper(!!y) %in% str_to_upper(remove)) %>%
-    # Spread so x is rows and y is columns
-    spread(key = !!y, value = pct, fill = 0) %>%
-    rename(" " = !!x) %>%
-    # move total row to end
-    select(-one_of("n"), one_of("n")) %>%
-    ungroup()
+  if(cell == FALSE){
+    # Make
+    d.output <- mulaw %>%
+      # Remove missing cases
+      filter(!is.na(!!x),
+             !is.na(!!y)) %>%
+      # Convert to ordered factors
+      mutate(!!x := to_factor(!!x, sort_levels = "values"),
+             !!y := to_factor(!!y, sort_levels = "values")) %>%
+      # Calculate denominator
+      group_by(!!x) %>%
+      mutate(total = sum(!!weight)) %>%
+      # Calculate proportions
+      group_by(!!x, !!y) %>%
+      summarise(pct = (sum(!!weight)/first(total))*100,
+                n = first(total)) %>%
+      # Remove values included in "remove" string
+      filter(!str_to_upper(!!x) %in% str_to_upper(remove),
+             !str_to_upper(!!y) %in% str_to_upper(remove)) %>%
+      # Spread so x is rows and y is columns
+      spread(key = !!y, value = pct, fill = 0) %>%
+      rename(" " = !!x) %>%
+      # move total row to end
+      select(-one_of("n"), one_of("n")) %>%
+      ungroup()
 
-  if(n == FALSE){
-    d.output <- d.output %>%
-      select(-n)
+    if(n == FALSE){
+      d.output <- d.output %>%
+        select(-n)
+    }
+  } else if(cell == TRUE){
+    # Make
+    d.output <- mulaw %>%
+      # Remove missing cases
+      filter(!is.na(!!x),
+             !is.na(!!y)) %>%
+      # Convert to ordered factors
+      mutate(!!x := to_factor(!!x, sort_levels = "values"),
+             !!y := to_factor(!!y, sort_levels = "values")) %>%
+      # Calculate denominator
+      mutate(total = sum(!!weight)) %>%
+      # Calculate proportions
+      group_by(!!x, !!y) %>%
+      summarise(pct = (sum(!!weight)/first(total))*100,
+                n = first(total)) %>%
+      # Remove values included in "remove" string
+      filter(!str_to_upper(!!x) %in% str_to_upper(remove),
+             !str_to_upper(!!y) %in% str_to_upper(remove)) %>%
+      # Spread so x is rows and y is columns
+      spread(key = !!y, value = pct, fill = 0) %>%
+      rename(" " = !!x) %>%
+      # move total row to end
+      select(-one_of("n"), one_of("n")) %>%
+      ungroup()
+
+    if(n == FALSE){
+      d.output <- d.output %>%
+        select(-n)
+    }
   }
+
   d.output
 }

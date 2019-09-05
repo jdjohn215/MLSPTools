@@ -4,7 +4,8 @@
 \alias{make.crosstab}
 \title{Make a weighted crosstab of row proportions}
 \usage{
-make.crosstab(x, y, mulaw, remove, weight = zwave_weight, n = TRUE)
+make.crosstab(x, y, mulaw, remove, weight = zwave_weight, n = TRUE,
+  cell = FALSE)
 }
 \arguments{
 \item{x}{The independent variable}
@@ -19,6 +20,8 @@ This will not affect any calculations made. The vector is not case-sensitive.}
 \item{weight}{The weighting variable, defaults to zwave_weight}
 
 \item{n}{logical, if TRUE a column of row totals is included}
+
+\item{cell}{logical, if TRUE cell percentages will be returned rather than row percentages (the default)}
 }
 \value{
 A dataframe.
