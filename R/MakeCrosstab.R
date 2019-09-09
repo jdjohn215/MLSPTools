@@ -17,6 +17,9 @@
 #' @export
 #' @import dplyr
 #' @import stringr
+#' @import tidyverse
+#' @import labelled
+#' @import haven
 #' @importFrom labelled to_factor
 #' @importFrom tidyr spread
 #' @importFrom tidyr gather
