@@ -4,7 +4,8 @@
 \alias{make.crosstab.3way}
 \title{Make a weighted crosstab of row proportions, by wave}
 \usage{
-make.crosstab.3way(x, y, z, mulaw, remove, weight = zwave_weight)
+make.crosstab.3way(x, y, z, mulaw, remove, weight = zwave_weight,
+  n = TRUE)
 }
 \arguments{
 \item{x}{The independent variable}
@@ -19,6 +20,8 @@ make.crosstab.3way(x, y, z, mulaw, remove, weight = zwave_weight)
 This will not affect any calculations made. The vector is not case-sensitive.}
 
 \item{weight}{The weighting variable, defaults to zwave_weight}
+
+\item{n}{Logical. If TRUE add a row total column}
 }
 \value{
 A dataframe.

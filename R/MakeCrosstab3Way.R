@@ -13,6 +13,7 @@
 #' @param remove An optional character vector of values to remove from final table (e.g. DK/Ref).
 #' This will not affect any calculations made. The vector is not case-sensitive.
 #' @param weight The weighting variable, defaults to zwave_weight
+#' @param n Logical. If TRUE add a row total column
 #'
 #' @return A dataframe.
 #' @export
@@ -34,7 +35,8 @@
 #'        facet_wrap(facets = vars(zpid3))
 
 make.crosstab.3way <- function(x, y, z, mulaw, remove,
-                               weight = zwave_weight){
+                               weight = zwave_weight,
+                               n = TRUE){
   # Some Nonstandard Evaluation witchcraft I don't understand
   x <- enquo(x)
   y <- enquo(y)
@@ -47,7 +49,7 @@ make.crosstab.3way <- function(x, y, z, mulaw, remove,
   }
 
   # Make
-  mulaw %>%
+  d.output <- mulaw %>%
     # Remove missing cases
     filter(!is.na(!!x),
            !is.na(!!y),
@@ -61,7 +63,8 @@ make.crosstab.3way <- function(x, y, z, mulaw, remove,
     mutate(total = sum(!!weight)) %>%
     # Calculate proportions
     group_by(!!x, !!y, !!z) %>%
-    summarise(pct = sum(!!weight)/first(total)) %>%
+    summarise(pct = sum(!!weight)/first(total),
+              n = first(total)) %>%
     # Remove values included in "remove" string
     filter(!str_to_upper(!!x) %in% str_to_upper(remove),
            !str_to_upper(!!y) %in% str_to_upper(remove),
@@ -69,4 +72,10 @@ make.crosstab.3way <- function(x, y, z, mulaw, remove,
     ungroup() %>%
     pivot_wider(names_from = !!y, values_from = pct,
                 values_fill = list(pct = 0))
+
+  if(n == FALSE){
+    d.output <- select(d.output, -n)
+  }
+
+  d.output
 }
