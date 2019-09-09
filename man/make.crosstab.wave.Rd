@@ -5,7 +5,7 @@
 \title{Make a weighted crosstab of row proportions, by wave}
 \usage{
 make.crosstab.wave(x, y, mulaw, remove, date = zpolldatestr,
-  weight = zwave_weight)
+  weight = zwave_weight, n = TRUE)
 }
 \arguments{
 \item{x}{The independent variable}
@@ -20,6 +20,8 @@ This will not affect any calculations made. The vector is not case-sensitive.}
 \item{date}{The date variable, defaults to zpolldatestr}
 
 \item{weight}{The weighting variable, defaults to zwave_weight}
+
+\item{n}{Logical. If TRUE then a row totals column is included}
 }
 \value{
 A dataframe.

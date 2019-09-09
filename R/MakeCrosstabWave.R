@@ -13,6 +13,7 @@
 #' This will not affect any calculations made. The vector is not case-sensitive.
 #' @param date The date variable, defaults to zpolldatestr
 #' @param weight The weighting variable, defaults to zwave_weight
+#' @param n Logical. If TRUE then a row totals column is included
 #'
 #' @return A dataframe.
 #' @export
@@ -33,7 +34,9 @@
 #'        facet_wrap(facets = vars(zpid3))
 
 make.crosstab.wave <- function(x, y, mulaw, remove,
-                               date = zpolldatestr, weight = zwave_weight){
+                               date = zpolldatestr,
+                               weight = zwave_weight,
+                               n = TRUE){
   # Some Nonstandard Evaluation witchcraft I don't understand
   x <- enquo(x)
   y <- enquo(y)
@@ -58,7 +61,8 @@ make.crosstab.wave <- function(x, y, mulaw, remove,
     mutate(total = sum(!!weight)) %>%
     # Calculate proportions
     group_by(!!x, !!y, !!date) %>%
-    summarise(pct = sum(!!weight)/first(total)) %>%
+    summarise(pct = sum(!!weight)/first(total),
+              n = first(total)) %>%
     # Remove values included in "remove" string
     filter(!str_to_upper(!!x) %in% str_to_upper(remove),
            !str_to_upper(!!y) %in% str_to_upper(remove)) %>%
