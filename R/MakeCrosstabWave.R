@@ -49,7 +49,7 @@ make.crosstab.wave <- function(x, y, mulaw, remove,
   }
 
   # Make
-  mulaw %>%
+  d.output <- mulaw %>%
     # Remove missing cases
     filter(!is.na(!!x),
            !is.na(!!y)) %>%
@@ -67,4 +67,10 @@ make.crosstab.wave <- function(x, y, mulaw, remove,
     filter(!str_to_upper(!!x) %in% str_to_upper(remove),
            !str_to_upper(!!y) %in% str_to_upper(remove)) %>%
     ungroup()
+
+  if(n == FALSE){
+    d.output <- select(d.output, -n)
+  }
+
+  d.output
 }
