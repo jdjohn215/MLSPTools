@@ -4,7 +4,7 @@
 \alias{make.ts}
 \title{Make a time series of a variable}
 \usage{
-make.ts(variable, mulaw, remove, format = "wide", date = zpolldatestr,
+make.ts(variable, mulaw, remove, format = "wide", date = zpollenddate,
   weight = zwave_weight, n = FALSE)
 }
 \arguments{
@@ -16,7 +16,7 @@ make.ts(variable, mulaw, remove, format = "wide", date = zpolldatestr,
 
 \item{format}{One of "wide" or "long", defaults to "wide"}
 
-\item{date}{The date variable, defaults to zpolldatestr}
+\item{date}{The date variable, defaults to zpollenddate}
 
 \item{weight}{The weight variable, defaults to zwave_weight}
 

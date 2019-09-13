@@ -11,7 +11,7 @@
 #' @param mulaw The data.frame containing the version of the integrated file you wish to use
 #' @param remove An optional character vector of values to remove from final table (e.g. DK/Ref).
 #' This will not affect any calculations made. The vector is not case-sensitive.
-#' @param date The date variable, defaults to zpolldatestr
+#' @param date The date variable, defaults to zpollenddate
 #' @param weight The weighting variable, defaults to zwave_weight
 #' @param n Logical. If TRUE then a row totals column is included
 #'
@@ -34,7 +34,7 @@
 #'        facet_wrap(facets = vars(zpid3))
 
 make.crosstab.wave <- function(x, y, mulaw, remove,
-                               date = zpolldatestr,
+                               date = zpollenddate,
                                weight = zwave_weight,
                                n = TRUE){
   # Some Nonstandard Evaluation witchcraft I don't understand
@@ -55,7 +55,8 @@ make.crosstab.wave <- function(x, y, mulaw, remove,
            !is.na(!!y)) %>%
     # Convert to ordered factors
     mutate(!!x := to_factor(!!x, sort_levels = "values"),
-           !!y := to_factor(!!y, sort_levels = "values")) %>%
+           !!y := to_factor(!!y, sort_levels = "values"),
+           {{date}} := to_factor({{date}}, sort_levels = "values")) %>%
     # Calculate denominator
     group_by(!!x, !!date) %>%
     mutate(total = sum(!!weight)) %>%

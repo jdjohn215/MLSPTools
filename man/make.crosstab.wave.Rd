@@ -4,7 +4,7 @@
 \alias{make.crosstab.wave}
 \title{Make a weighted crosstab of row proportions, by wave}
 \usage{
-make.crosstab.wave(x, y, mulaw, remove, date = zpolldatestr,
+make.crosstab.wave(x, y, mulaw, remove, date = zpollenddate,
   weight = zwave_weight, n = TRUE)
 }
 \arguments{
@@ -17,7 +17,7 @@ make.crosstab.wave(x, y, mulaw, remove, date = zpolldatestr,
 \item{remove}{An optional character vector of values to remove from final table (e.g. DK/Ref).
 This will not affect any calculations made. The vector is not case-sensitive.}
 
-\item{date}{The date variable, defaults to zpolldatestr}
+\item{date}{The date variable, defaults to zpollenddate}
 
 \item{weight}{The weighting variable, defaults to zwave_weight}
 
