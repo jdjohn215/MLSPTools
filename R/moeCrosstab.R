@@ -38,10 +38,6 @@ moe.crosstab <- function(x, y, mulaw, weights = zwave_weight, format = "long"){
     rename(weights = {{weights}})
 
   deff <- deff_calc(d.deff$weights)
-  unweighted.n <- d.deff %>%
-    filter(!is.na({{x}}),
-           !is.na({{y}})) %>%
-    nrow()
 
   output <- mulaw %>%
     filter(!is.na({{x}}),
@@ -49,13 +45,16 @@ moe.crosstab <- function(x, y, mulaw, weights = zwave_weight, format = "long"){
     mutate({{x}} := to_factor({{x}}),
            {{y}} := to_factor({{y}})) %>%
     group_by({{x}}) %>%
-    mutate(total = sum({{weights}})) %>%
+    mutate(total = sum({{weights}}),
+           n.row = length({{weights}})) %>%
     group_by({{x}}, {{y}}) %>%
     summarise(observations = sum({{weights}}),
-              pct = observations/first(total)) %>%
+              pct = observations/first(total),
+              n.row = first(n.row)) %>%
     ungroup() %>%
-    mutate(moe = sqrt(deff)*1.96*sqrt((pct*(1-pct))/(unweighted.n - 1))*100) %>%
-    mutate(pct = pct*100)
+    mutate(moe = sqrt(deff)*1.96*sqrt((pct*(1-pct))/(n.row - 1))*100) %>%
+    mutate(pct = pct*100) %>%
+    select(-n.row)
 
   if(format == "wide"){
     output.wide <- output %>%
