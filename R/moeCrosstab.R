@@ -4,7 +4,7 @@
 #'
 #'  This function returns a crosstab of two supplied variables along with margins of error.
 #'  The resulting data.frame defaults
-#'  to long format, but can be in long format if format = "long" is specified.
+#'  to long format, but can be in wide format if format = "wide" is specified.
 #'
 #' @param x The grouping variable
 #' @param y the dependent variable
