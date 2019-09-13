@@ -1,4 +1,4 @@
-#' Make a time series of a variable
+#' Make a topline of a variable
 #'
 #' \code{moe.topline} returns a data.frame containing a topline table with the margin of error
 #'

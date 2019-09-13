@@ -2,7 +2,7 @@
 % Please edit documentation in R/moeCrosstab.R
 \name{moe.crosstab}
 \alias{moe.crosstab}
-\title{Make a time series of a variable}
+\title{Make a crosstab of a variable}
 \usage{
 moe.crosstab(x, y, mulaw, weights = zwave_weight, format = "long")
 }

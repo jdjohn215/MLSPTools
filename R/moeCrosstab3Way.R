@@ -1,4 +1,4 @@
-#' Make a time series of a variable
+#' Make a 3-way crosstab of a variable
 #'
 #' \code{moe.crosstab3way} returns a data.frame of a crosstab of two variables by a 3rd variable
 #'  along with margins of error

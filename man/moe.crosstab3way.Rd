@@ -2,7 +2,7 @@
 % Please edit documentation in R/moeCrosstab3Way.R
 \name{moe.crosstab3way}
 \alias{moe.crosstab3way}
-\title{Make a time series of a variable}
+\title{Make a 3-way crosstab of a variable}
 \usage{
 moe.crosstab3way(x, y, z, mulaw, weights = zwave_weight,
   format = "long")

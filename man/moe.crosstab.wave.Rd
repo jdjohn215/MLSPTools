@@ -2,7 +2,7 @@
 % Please edit documentation in R/moeCrosstabWave.R
 \name{moe.crosstab.wave}
 \alias{moe.crosstab.wave}
-\title{Make a time series of a variable}
+\title{Make a crosstab by wave of a variable}
 \usage{
 moe.crosstab.wave(x, y, mulaw, date = zpollenddate,
   weights = zwave_weight, format = "long")

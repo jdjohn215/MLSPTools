@@ -1,4 +1,4 @@
-#' Make a time series of a variable
+#' Make a crosstab of a variable
 #'
 #' \code{moe.crosstab} returns a data.frame a crosstab of two variables along with margins of error
 #'

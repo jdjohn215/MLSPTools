@@ -1,4 +1,4 @@
-#' Make a time series of a variable
+#' Make a crosstab by wave of a variable
 #'
 #' \code{moe.crosstab.wave} returns a data.frame of a crosstab of two variables by wave along with margins of error
 #'

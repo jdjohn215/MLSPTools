@@ -2,7 +2,7 @@
 % Please edit documentation in R/moeTopline.R
 \name{moe.topline}
 \alias{moe.topline}
-\title{Make a time series of a variable}
+\title{Make a topline of a variable}
 \usage{
 moe.topline(x, mulaw, weights = zwave_weight)
 }
