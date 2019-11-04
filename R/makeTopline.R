@@ -63,7 +63,7 @@ make.topline <- function(variable, mulaw, weight = zwave_weight,
     select(Response = !!variable, Frequency = n, Percent = pct,
            `Valid Percent` = valid.pct, `Cumulative Percent` = cum) %>%
     # Remove values included in "remove" string
-    filter(Response %in% str_to_upper(remove))
+    filter(! str_to_upper(Response) %in% str_to_upper(remove))
 
   if(n == FALSE){
     d.output <- select(d.output, -`Frequency`)
