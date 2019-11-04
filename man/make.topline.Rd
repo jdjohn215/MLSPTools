@@ -5,7 +5,7 @@
 \title{Make a time series of a variable}
 \usage{
 make.topline(variable, mulaw, weight = zwave_weight, n = TRUE,
-  cumsum = TRUE)
+  cumsum = TRUE, remove)
 }
 \arguments{
 \item{variable}{The variable, unquoted}
@@ -17,6 +17,9 @@ make.topline(variable, mulaw, weight = zwave_weight, n = TRUE,
 \item{n}{Logical, determines if a row total is included or not}
 
 \item{cumsum}{Logical, determines if a cumulative percent column is included or not}
+
+\item{remove}{an optional vector of response options to remove from the table (after calculating percents).
+This is useful when making tables.}
 }
 \value{
 A dataframe.

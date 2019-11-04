@@ -9,6 +9,8 @@
 #' @param weight The weight variable, defaults to zwave_weight
 #' @param n Logical, determines if a row total is included or not
 #' @param cumsum Logical, determines if a cumulative percent column is included or not
+#' @param remove an optional vector of response options to remove from the table (after calculating percents).
+#' This is useful when making tables.
 #'
 #' @return A dataframe.
 #' @export
@@ -21,11 +23,16 @@
 #' make.topline(variable = g2, mulaw = orig, remove = c("refused"), format = "long")
 #'
 make.topline <- function(variable, mulaw, weight = zwave_weight,
-                         n = TRUE, cumsum = TRUE){
+                         n = TRUE, cumsum = TRUE, remove){
 
   # Some Nonstandard Evaluation witchcraft I don't understand
   variable <- enquo(variable)
   weight <- enquo(weight)
+
+  # if remove is missing replace with empty string
+  if(missing(remove)){
+    remove = ""
+  }
 
   # make list of valid waves
   valid.waves <- mulaw %>%
@@ -54,7 +61,9 @@ make.topline <- function(variable, mulaw, weight = zwave_weight,
            valid.pct = replace(valid.pct, !!variable == "(Missing)", NA),
            cum = replace(cum, !!variable == "(Missing)", NA)) %>%
     select(Response = !!variable, Frequency = n, Percent = pct,
-           `Valid Percent` = valid.pct, `Cumulative Percent` = cum)
+           `Valid Percent` = valid.pct, `Cumulative Percent` = cum) %>%
+    # Remove values included in "remove" string
+    filter(Response %in% str_to_upper(remove))
 
   if(n == FALSE){
     d.output <- select(d.output, -`Frequency`)
