@@ -21,3 +21,22 @@ theme_LubarSlides <- function(PlotMargins = c(0.25, 0, 2, 1)) {
 
   ret
 }
+
+
+#' theme for tables with default ggplot2 scaling and margins
+#'
+#' @export
+#' @import ggplot2
+#'
+
+theme_MLSP <- function() {
+  ret <- theme(text = element_text(family = "serif"),
+               legend.position = "none",
+               panel.background = element_blank(),
+               panel.grid.major.y = element_line(colour = "grey"),
+               panel.grid.minor.y = element_line(colour = "grey"),
+               axis.line.y = element_line(),
+               axis.line.x = element_line())
+
+  ret
+}
