@@ -26,7 +26,8 @@
 
 
 mlspToplineBar <- function(toplinetable, titlevar = NULL, title = NULL, subtitle = NULL,
-                           LubarSlides = TRUE, PlotMargins = c(0.25, 0, 2, 1),
+                           theme = NULL, LubarSlides = TRUE,
+                           PlotMargins = c(0.25, 0, 2, 1),
                            wraptitle = 95){
   title.text <- "no title provided"
   if(!is.null(titlevar)){
