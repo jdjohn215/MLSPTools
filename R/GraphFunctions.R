@@ -52,12 +52,15 @@ mlspToplineBar <- function(toplinetable, titlevar = NULL, title = NULL, subtitle
     labs(title = str_wrap(title.text, width = wraptitle),
          subtitle = subtitle)
 
-  if(theme == "LubarSlides"){
-    p <- p +
-      theme_LubarSlides(PlotMargins = PlotMargins)
-  } else if(theme == "MLSP"){
-    p <- p +
-      theme_MLSP()
+  if(!is.null(theme)){
+    if(theme == "LubarSlides"){
+      p <- p +
+        theme_LubarSlides(PlotMargins = PlotMargins)
+    } else if(theme == "MLSP"){
+      p <- p +
+        theme_MLSP()
+    }
   }
+
   p
 }
