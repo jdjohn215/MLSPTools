@@ -114,6 +114,7 @@ mlspCrosstabBar <- function(crosstabtable, titlevar = NULL, title = NULL, subtit
     ggplot(aes(name, value, fill = xgroup)) +
     geom_bar(stat = "identity", position = "dodge") +
     geom_text(aes(label = round(value)), vjust = -0.5,
+              position = position_dodge(width = 1),
               size = 4, fontface = "bold", family = "serif") +
     scale_x_discrete(name = NULL) +
     scale_y_continuous(name = NULL, limits = c(0,100),
