@@ -5,8 +5,8 @@
 \title{Make a simple bar graph of a topline table}
 \usage{
 mlspToplineBar(toplinetable, titlevar = NULL, title = NULL,
-  subtitle = NULL, LubarSlides = TRUE, PlotMargins = c(0.25, 0, 2,
-  1), wraptitle = 95)
+  subtitle = NULL, theme = NULL, LubarSlides = TRUE,
+  PlotMargins = c(0.25, 0, 2, 1), wraptitle = 95)
 }
 \arguments{
 \item{toplinetable}{The source table created by make.topline()}
@@ -17,13 +17,13 @@ mlspToplineBar(toplinetable, titlevar = NULL, title = NULL,
 
 \item{subtitle}{If supplied, it will be the graph's subtitle}
 
+\item{theme}{Optional. One of either "LubarSlides" or "MLSP". This sets the theme to
+theme_LubarSlides or theme_MLSP, respectively.}
+
 \item{PlotMargins}{Only applicable when theme = "LubarSlides". It allows the user to manually change the plot.margin parameter.}
 
 \item{wraptitle}{= the length at which to wrap the character title string. By default
 it is 95 which matches the width of a LubarSlide.}
-
-\item{theme}{Optional. One of either "LubarSlides" or "MLSP". This sets the theme to
-theme_LubarSlides or theme_MLSP, respectively.}
 }
 \value{
 A dataframe.
