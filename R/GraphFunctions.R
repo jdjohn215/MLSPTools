@@ -43,7 +43,11 @@ mlspToplineBar <- function(toplinetable, titlevar = NULL, title = NULL, subtitle
   p <- toplinetable %>%
     ggplot(aes(Response, `Valid Percent`, fill = Response)) +
     geom_bar(stat = "identity") +
-    geom_text(aes(label = round(`Valid Percent`)), vjust = -0.5,
+    geom_text(data = function(x) subset(x, `Valid Percent` < 93),
+              aes(label = round(`Valid Percent`)), vjust = -0.5,
+              size = 4, fontface = "bold", family = "serif") +
+    geom_text(data = function(x) subset(x, `Valid Percent` > 92),
+              aes(label = round(`Valid Percent`)), vjust = 1.2,
               size = 4, fontface = "bold", family = "serif") +
     scale_x_discrete(name = NULL) +
     scale_y_continuous(name = NULL, limits = c(0,100),
@@ -89,6 +93,7 @@ mlspToplineBar <- function(toplinetable, titlevar = NULL, title = NULL, subtitle
 #' @import dplyr
 #' @import stringr
 #' @import ggplot2
+#' @importFrom tidyr pivot_longer
 #'
 
 
@@ -113,7 +118,12 @@ mlspCrosstabBar <- function(crosstabtable, titlevar = NULL, title = NULL, subtit
     pivot_longer(cols = -c(xgroup, n)) %>%
     ggplot(aes(name, value, fill = xgroup)) +
     geom_bar(stat = "identity", position = "dodge") +
-    geom_text(aes(label = round(value)), vjust = -0.5,
+    geom_text(data = function(x) subset(x, value < 93),
+              aes(label = round(value)), vjust = -0.5,
+              position = position_dodge(width = 1),
+              size = 4, fontface = "bold", family = "serif") +
+    geom_text(data = function(x) subset(x, value > 92),
+              aes(label = round(value)), vjust = 1.2,
               position = position_dodge(width = 1),
               size = 4, fontface = "bold", family = "serif") +
     scale_x_discrete(name = NULL) +
@@ -127,16 +137,19 @@ mlspCrosstabBar <- function(crosstabtable, titlevar = NULL, title = NULL, subtit
     p <- p +
       theme_LubarSlides(PlotMargins = PlotMargins) +
       theme(legend.position = legendPosition,
-            legend.justification = legendJust)
+            legend.justification = legendJust,
+            legend.title = element_blank())
   } else if(theme == "MLSP"){
     p <- p +
       theme_MLSP() +
       theme(legend.position = legendPosition,
-            legend.justification = legendJust)
+            legend.justification = legendJust,
+            legend.title = element_blank())
   } else{
     p <- p +
       theme(legend.position = legendPosition,
-            legend.justification = legendJust)
+            legend.justification = legendJust,
+            legend.title = element_blank())
   }
 
   p
