@@ -123,22 +123,20 @@ mlspCrosstabBar <- function(crosstabtable, titlevar = NULL, title = NULL, subtit
     labs(title = str_wrap(title.text, width = wraptitle),
          subtitle = subtitle)
 
-  if(!is.null(theme)){
-    if(theme == "LubarSlides"){
-      p <- p +
-        theme_LubarSlides(PlotMargins = PlotMargins) +
-        theme(legend.position = legendPosition,
-              legend.justification = legendJust)
-    } else if(theme == "MLSP"){
-      p <- p +
-        theme_MLSP() +
-        theme(legend.position = legendPosition,
-              legend.justification = legendJust)
-    } else{
-      p <- p +
-        theme(legend.position = legendPosition,
-              legend.justification = legendJust)
-    }
+  if(theme == "LubarSlides"){
+    p <- p +
+      theme_LubarSlides(PlotMargins = PlotMargins) +
+      theme(legend.position = legendPosition,
+            legend.justification = legendJust)
+  } else if(theme == "MLSP"){
+    p <- p +
+      theme_MLSP() +
+      theme(legend.position = legendPosition,
+            legend.justification = legendJust)
+  } else{
+    p <- p +
+      theme(legend.position = legendPosition,
+            legend.justification = legendJust)
   }
 
   p
