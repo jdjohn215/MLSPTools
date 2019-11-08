@@ -5,7 +5,7 @@
 \title{Make a grouped bar graph of a crosstab table}
 \usage{
 mlspCrosstabBar(crosstabtable, titlevar = NULL, title = NULL,
-  subtitle = NULL, theme = NULL, LubarSlides = TRUE,
+  subtitle = NULL, theme = "default", LubarSlides = TRUE,
   PlotMargins = c(0.25, 0, 2, 1), wraptitle = 95,
   legendPosition = "top", legendJust = "right")
 }
