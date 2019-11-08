@@ -93,7 +93,7 @@ mlspToplineBar <- function(toplinetable, titlevar = NULL, title = NULL, subtitle
 
 
 mlspCrosstabBar <- function(crosstabtable, titlevar = NULL, title = NULL, subtitle = NULL,
-                           theme = NULL, LubarSlides = TRUE,
+                           theme = "default", LubarSlides = TRUE,
                            PlotMargins = c(0.25, 0, 2, 1),
                            wraptitle = 95, legendPosition = "top",
                            legendJust = "right"){
