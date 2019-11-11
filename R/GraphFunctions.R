@@ -238,3 +238,83 @@ mlspTimeSeriesScatter <- function(timeseriestable, titlevar = NULL, title = NULL
 
   p
 }
+
+
+##################################################################################
+#' Make a dot and ribbon plot comparing symmetrical questions
+#'
+#' \code{compare.toplines} creates a scatter plot with time on the x-axis
+#'
+#'  This function takes a list of variables, makes toplines of them, and plots the toplines in a graph with
+#'  one question per row and dots for the values of each question response.
+#'
+#' @param varlist a vector of quoted variable names
+#' @param vartext a character vector of text which should be used to describe the variables
+#' @param mulaw the relevant integ file
+#' @param sortResponse The response category in the topline tables by which to sort the vartext
+#' @param remove an optional vector of values to remove from the topline table, supplied to the remove
+#' argument in make.topline()
+#'
+#' @return A ggplot object.
+#' @export
+#' @import dplyr
+#' @import stringr
+#' @import ggplot2
+#' @importFrom tidyr pivot_longer
+#'
+#' @examples
+#' compare.toplines(varlist = c("d38", "d55", "d91", "d59", "d92"),
+#' mulaw = demprimary,
+#' vartext = c("Joe Biden", "Elizabeth Warren", "Kamala Harris", "Bernie Sanders", "Pete Buttigieg"),
+#' sortResponse = "Favorable",
+#' remove = c("don't know", "refused"))
+
+compare.toplines <- function(varlist, vartext, mulaw, sortResponse, remove = NULL){
+  toplinefunction <- function(variable){
+    make.topline(variable = !!rlang::sym(variable),
+                 mulaw = mulaw,
+                 remove = remove) %>%
+      mutate(Response = as.character(Response),
+             variable = variable)
+  }
+
+  df <- map(varlist, toplinefunction) %>%
+    bind_rows()
+
+  vars.to.vartext <- tibble(varlist, vartext) %>%
+    select(variable = 1, vartext = 2)
+  df <- df %>%
+    inner_join(vars.to.vartext) %>%
+    select(-variable)
+
+  sort.order <- df %>%
+    filter(Response == sortResponse) %>%
+    mutate(vartext = fct_reorder(vartext, `Valid Percent`))
+
+  df <- df %>%
+    mutate(vartext = factor(vartext, levels = levels(sort.order$vartext)))
+
+  df.ribbon <- df %>%
+    group_by(vartext) %>%
+    summarise(min = min(`Valid Percent`),
+              max = max(`Valid Percent`))
+
+  ggplot() +
+    geom_ribbon(data = df.ribbon,
+                aes(x = vartext, ymin = min, ymax = max),
+                color = "grey", size = 3) +
+    geom_point(data = df, aes(vartext, `Valid Percent`, color = Response),
+               size = 3) +
+    geom_text(data = df, aes(vartext, `Valid Percent`, label = round(`Valid Percent`)),
+              vjust = -1, family = "serif") +
+    scale_y_continuous(labels = scales::percent_format(accuracy = 1, scale = 1),
+                       name = NULL) +
+    scale_x_discrete(name = NULL) +
+    coord_flip() +
+    ggthemes::theme_tufte() +
+    theme(legend.title = element_blank(),
+          legend.position = "top",
+          legend.justification = "right",
+          axis.line.x = element_line(),
+          axis.line.y = element_line())
+}
