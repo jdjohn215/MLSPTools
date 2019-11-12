@@ -34,7 +34,7 @@ theme_MLSP <- function() {
                panel.background = element_rect(fill = "linen"),
                axis.line.y = element_line(size = 1),
                axis.line.x = element_line(size = 1),
-               axis.ticks = element_line(size = 1))
+               axis.ticks = element_blank())
 
   ret
 }
