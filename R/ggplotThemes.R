@@ -9,11 +9,10 @@
 theme_LubarSlides <- function(PlotMargins = c(0.25, 0, 2, 1)) {
   ret <- theme(text = element_text(family = "serif"),
                legend.position = "none",
-               panel.background = element_blank(),
-               panel.grid.major.y = element_line(colour = "grey"),
-               panel.grid.minor.y = element_line(colour = "grey"),
-               axis.line.y = element_line(),
-               axis.line.x = element_line(),
+               panel.background = element_rect(fill = "linen"),
+               axis.line.y = element_line(size = 1),
+               axis.line.x = element_line(size = 1),
+               axis.ticks = element_blank(),
                title = element_text(face = "bold", size = 12),
                axis.text.y = element_text(face = "bold", size = 12),
                axis.text.x = element_text(face = "bold", size = 12),
@@ -32,11 +31,10 @@ theme_LubarSlides <- function(PlotMargins = c(0.25, 0, 2, 1)) {
 theme_MLSP <- function() {
   ret <- theme(text = element_text(family = "serif"),
                legend.position = "none",
-               panel.background = element_blank(),
-               panel.grid.major.y = element_line(colour = "grey"),
-               panel.grid.minor.y = element_line(colour = "grey"),
-               axis.line.y = element_line(),
-               axis.line.x = element_line())
+               panel.background = element_rect(fill = "linen"),
+               axis.line.y = element_line(size = 1),
+               axis.line.x = element_line(size = 1),
+               axis.ticks = element_line(size = 1))
 
   ret
 }
