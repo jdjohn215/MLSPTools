@@ -118,13 +118,8 @@ mlspCrosstabBar <- function(crosstabtable, titlevar = NULL, title = NULL, subtit
     pivot_longer(cols = -c(xgroup, n)) %>%
     ggplot(aes(name, value, fill = xgroup)) +
     geom_bar(stat = "identity", position = "dodge") +
-    geom_text(data = function(x) subset(x, value < 93),
-              aes(label = round(value)), vjust = -0.5,
-              position = position_dodge(width = 1),
-              size = 4, fontface = "bold", family = "serif") +
-    geom_text(data = function(x) subset(x, value > 92),
-              aes(label = round(value)), vjust = 1.2,
-              position = position_dodge(width = 1),
+    geom_text(aes(label = round(value)), vjust = -0.5,
+              position = position_dodge2(width = 1),
               size = 4, fontface = "bold", family = "serif") +
     scale_x_discrete(name = NULL) +
     scale_y_continuous(name = NULL, limits = c(0,100),
