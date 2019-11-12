@@ -172,6 +172,7 @@ mlspCrosstabBar <- function(crosstabtable, titlevar = NULL, title = NULL, subtit
 #' @param PlotMargins Only applicable when theme = "LubarSlides". It allows the user to manually change the plot.margin parameter.
 #' @param wraptitle = the length at which to wrap the character title string. By default
 #' it is 95 which matches the width of a LubarSlide.
+#' @param alpha the transparency of the dots, defaults to opaque
 #'
 #' @return A dataframe.
 #' @export
@@ -186,7 +187,7 @@ mlspTimeSeriesScatter <- function(timeseriestable, titlevar = NULL, title = NULL
                             theme = "default", LubarSlides = TRUE,
                             PlotMargins = c(0.25, 0, 2, 1),
                             wraptitle = 95, legendPosition = "top",
-                            legendJust = "right"){
+                            legendJust = "right", alpha = 1){
   title.text <- "no title provided"
   if(!is.null(titlevar)){
     qs <- suppressMessages(readxl::read_excel("~/Dropbox/MuLawPoll1/IntegCurrentVariables.xlsx",
@@ -209,7 +210,7 @@ mlspTimeSeriesScatter <- function(timeseriestable, titlevar = NULL, title = NULL
 
   p <- timeseriestable %>%
     ggplot(aes(as.Date(PollDate), pct, color = yvar)) +
-    geom_point() +
+    geom_point(size = 3, alpha = alpha) +
     scale_x_date(name = NULL) +
     scale_y_continuous(name = NULL, limits = c(0,100),
                        labels = scales::percent_format(scale = 1, accuracy = 1),
