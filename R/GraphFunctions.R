@@ -261,6 +261,8 @@ mlspTimeSeriesScatter <- function(timeseriestable, titlevar = NULL, title = NULL
 #' @import stringr
 #' @import ggplot2
 #' @importFrom tidyr pivot_longer
+#' @importFrom purrr map
+#' @importFrom forcats fct_reorder
 #'
 #' @examples
 #' compare.toplines(varlist = c("d38", "d55", "d91", "d59", "d92"),
@@ -269,7 +271,11 @@ mlspTimeSeriesScatter <- function(timeseriestable, titlevar = NULL, title = NULL
 #' sortResponse = "Favorable",
 #' remove = c("don't know", "refused"))
 
-compare.toplines <- function(varlist, vartext, mulaw, sortResponse, remove = NULL){
+compare.toplines <- function(varlist, vartext = NULL, mulaw, sortResponse, remove = NULL){
+  if(is.null(vartext)){
+    vartext <- varlist
+  }
+
   toplinefunction <- function(variable){
     make.topline(variable = !!rlang::sym(variable),
                  mulaw = mulaw,
