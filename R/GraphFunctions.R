@@ -138,7 +138,8 @@ mlspCrosstabBar <- function(crosstabtable, titlevar = NULL, title = NULL, subtit
       theme_LubarSlides(PlotMargins = PlotMargins) +
       theme(legend.position = legendPosition,
             legend.justification = legendJust,
-            legend.title = element_blank())
+            legend.title = element_blank(),
+            legend.text = element_text(size = 12))
   } else if(theme == "MLSP"){
     p <- p +
       theme_MLSP() +
@@ -223,7 +224,8 @@ mlspTimeSeriesScatter <- function(timeseriestable, titlevar = NULL, title = NULL
       theme_LubarSlides(PlotMargins = PlotMargins) +
       theme(legend.position = legendPosition,
             legend.justification = legendJust,
-            legend.title = element_blank())
+            legend.title = element_blank(),
+            legend.text = element_text(size = 12))
   } else if(theme == "MLSP"){
     p <- p +
       theme_MLSP() +
