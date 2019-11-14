@@ -5,7 +5,7 @@
 \title{Make a time series scatterplot}
 \usage{
 mlspTimeSeriesScatter(timeseriestable, titlevar = NULL, title = NULL,
-  subtitle = NULL, theme = "default", LubarSlides = TRUE,
+  subtitle = NULL, theme = "default", xlab = NULL,
   PlotMargins = c(0.25, 0, 2, 1), wraptitle = 90,
   legendPosition = "top", legendJust = "right", alpha = 1)
 }
@@ -20,6 +20,8 @@ mlspTimeSeriesScatter(timeseriestable, titlevar = NULL, title = NULL,
 
 \item{theme}{Optional. One of either "LubarSlides" or "MLSP". This sets the theme to
 theme_LubarSlides or theme_MLSP, respectively.}
+
+\item{xlab}{an optional x-axis name}
 
 \item{PlotMargins}{Only applicable when theme = "LubarSlides". It allows the user to manually change the plot.margin parameter.}
 

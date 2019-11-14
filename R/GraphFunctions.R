@@ -11,6 +11,7 @@
 #' @param subtitle If supplied, it will be the graph's subtitle
 #' @param theme Optional. One of either "LubarSlides" or "MLSP". This sets the theme to
 #' theme_LubarSlides or theme_MLSP, respectively.
+#' @param xlab an optional x-axis name
 #' @param PlotMargins Only applicable when theme = "LubarSlides". It allows the user to manually change the plot.margin parameter.
 #' @param wraptitle = the length at which to wrap the character title string. By default
 #' it is 90 which matches the width of a LubarSlide.
@@ -28,7 +29,7 @@
 
 
 mlspToplineBar <- function(toplinetable, titlevar = NULL, title = NULL, subtitle = NULL,
-                           theme = NULL, LubarSlides = TRUE,
+                           theme = NULL,
                            PlotMargins = c(0.25, 0, 2, 1),
                            wraptitle = 90, xlabelAngle = NULL,
                            xlabelWrap = 12){
@@ -59,7 +60,7 @@ mlspToplineBar <- function(toplinetable, titlevar = NULL, title = NULL, subtitle
     geom_text(data = function(x) subset(x, `Valid Percent` > 92),
               aes(label = round(`Valid Percent`)), vjust = 1.2,
               size = barlabelsize, fontface = "bold", family = "serif") +
-    scale_x_discrete(name = NULL, labels = function(x) str_wrap(x, width = xlabelWrap)) +
+    scale_x_discrete(name = xlab, labels = function(x) str_wrap(x, width = xlabelWrap)) +
     scale_y_continuous(name = NULL, limits = c(0,100),
                        breaks = c(0,20,40,60,80,100),
                        labels = scales::percent_format(scale = 1, accuracy = 1),
@@ -95,6 +96,7 @@ mlspToplineBar <- function(toplinetable, titlevar = NULL, title = NULL, subtitle
 #' @param subtitle If supplied, it will be the graph's subtitle
 #' @param theme Optional. One of either "LubarSlides" or "MLSP". This sets the theme to
 #' theme_LubarSlides or theme_MLSP, respectively.
+#' @param xlab an optional x-axis name
 #' @param PlotMargins Only applicable when theme = "LubarSlides". It allows the user to manually change the plot.margin parameter.
 #' @param wraptitle = the length at which to wrap the character title string. By default
 #' it is 90 which matches the width of a LubarSlide.
@@ -114,7 +116,7 @@ mlspToplineBar <- function(toplinetable, titlevar = NULL, title = NULL, subtitle
 
 
 mlspCrosstabBar <- function(crosstabtable, titlevar = NULL, title = NULL, subtitle = NULL,
-                           theme = "default", LubarSlides = TRUE,
+                           theme = "default", xlab = NULL,
                            PlotMargins = c(0.25, 0, 2, 1),
                            wraptitle = 90, legendPosition = "top",
                            legendJust = "right", xlabelAngle = NULL,
@@ -150,7 +152,7 @@ mlspCrosstabBar <- function(crosstabtable, titlevar = NULL, title = NULL, subtit
     geom_text(aes(label = round(value)), vjust = -0.5,
               position = position_dodge2(width = 1),
               size = barlabelsize, fontface = "bold", family = "serif") +
-    scale_x_discrete(name = NULL, labels = function(x) str_wrap(x, width = xlabelWrap)) +
+    scale_x_discrete(name = xlab, labels = function(x) str_wrap(x, width = xlabelWrap)) +
     scale_y_continuous(name = NULL, limits = c(0,100),
                        breaks = c(0,20,40,60,80,100),
                        labels = scales::percent_format(scale = 1, accuracy = 1),
@@ -208,6 +210,7 @@ mlspCrosstabBar <- function(crosstabtable, titlevar = NULL, title = NULL, subtit
 #' @param subtitle If supplied, it will be the graph's subtitle
 #' @param theme Optional. One of either "LubarSlides" or "MLSP". This sets the theme to
 #' theme_LubarSlides or theme_MLSP, respectively.
+#' @param xlab an optional x-axis name
 #' @param PlotMargins Only applicable when theme = "LubarSlides". It allows the user to manually change the plot.margin parameter.
 #' @param wraptitle = the length at which to wrap the character title string. By default
 #' it is 90 which matches the width of a LubarSlide.
@@ -223,7 +226,7 @@ mlspCrosstabBar <- function(crosstabtable, titlevar = NULL, title = NULL, subtit
 #' make.ts(g40, integ) %>% mlspTimeSeriesScatter()
 
 mlspTimeSeriesScatter <- function(timeseriestable, titlevar = NULL, title = NULL, subtitle = NULL,
-                            theme = "default", LubarSlides = TRUE,
+                            theme = "default", xlab = NULL,
                             PlotMargins = c(0.25, 0, 2, 1),
                             wraptitle = 90, legendPosition = "top",
                             legendJust = "right", alpha = 1){
@@ -251,7 +254,7 @@ mlspTimeSeriesScatter <- function(timeseriestable, titlevar = NULL, title = NULL
     ggplot(aes(as.Date(PollDate), pct, color = yvar)) +
     geom_hline(yintercept = 50, color = "gray60", linetype = "dashed") +
     geom_point(size = 3, alpha = alpha) +
-    scale_x_date(name = NULL) +
+    scale_x_date(name = xlab) +
     scale_y_continuous(name = NULL, limits = c(0,100),
                        breaks = c(0,20,40,60,80,100),
                        labels = scales::percent_format(scale = 1, accuracy = 1),
