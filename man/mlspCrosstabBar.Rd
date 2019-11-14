@@ -4,13 +4,15 @@
 \alias{mlspCrosstabBar}
 \title{Make a grouped bar graph of a crosstab table}
 \usage{
-mlspCrosstabBar(crosstabtable, titlevar = NULL, title = NULL,
+mlspCrosstabBar(tableinput, titlevar = NULL, title = NULL,
   subtitle = NULL, theme = "default", xlab = NULL,
   PlotMargins = c(0.25, 0, 3.25, 1), wraptitle = 90,
   legendPosition = "top", legendJust = "right", xlabelAngle = NULL,
-  xlabelWrap = 12, facetncol = NULL)
+  xlabelWrap = 12, facetncol = NULL, xlabelSize = 13)
 }
 \arguments{
+\item{tableinput}{The source table created by make.crosstab()}
+
 \item{titlevar}{A quoted variable name. If supplied, the full text of this variable will be the title}
 
 \item{title}{A character string. If supplied it will be the graph's title.}
@@ -37,7 +39,7 @@ it is 90 which matches the width of a LubarSlide.}
 
 \item{facetncol}{optional, the number of facet columns}
 
-\item{toplinetable}{The source table created by make.crosstab()}
+\item{xlabelSize}{specification of x-label size, defaults to 13}
 }
 \value{
 A dataframe.

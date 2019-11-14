@@ -4,12 +4,13 @@
 \alias{mlspToplineBar}
 \title{Make a simple bar graph of a topline table}
 \usage{
-mlspToplineBar(toplinetable, titlevar = NULL, title = NULL,
+mlspToplineBar(tableinput, titlevar = NULL, title = NULL,
   subtitle = NULL, theme = NULL, xlab = NULL, PlotMargins = c(0.25,
-  0, 3.25, 1), wraptitle = 90, xlabelAngle = NULL, xlabelWrap = 12)
+  0, 3.25, 1), wraptitle = 90, xlabelAngle = NULL, xlabelWrap = 12,
+  xlabelSize = 13)
 }
 \arguments{
-\item{toplinetable}{The source table created by make.topline()}
+\item{tableinput}{The source table created by make.topline()}
 
 \item{titlevar}{A quoted variable name. If supplied, the full text of this variable will be the title}
 
@@ -30,6 +31,8 @@ it is 90 which matches the width of a LubarSlide.}
 \item{xlabelAngle}{optional, the angle of the x-axis labels}
 
 \item{xlabelWrap}{character length at which to wrap x-axis labels}
+
+\item{xlabelSize}{specification of x-label size, defaults to 13}
 }
 \value{
 A dataframe.

@@ -4,7 +4,7 @@
 \alias{theme_LubarSlides}
 \title{theme for tables with scaling and font sizes optimized for Lubar Center slideshows}
 \usage{
-theme_LubarSlides(PlotMargins = c(0.25, 0, 3.25, 1))
+theme_LubarSlides(PlotMargins = c(0.25, 0, 3.25, 1), xlabelSize = 13)
 }
 \arguments{
 \item{PlotMargins}{A vector of margins for the graph in the form c(top, right, bottom, left). Units are lines.}

@@ -4,13 +4,13 @@
 \alias{mlspTimeSeriesScatter}
 \title{Make a time series scatterplot}
 \usage{
-mlspTimeSeriesScatter(timeseriestable, titlevar = NULL, title = NULL,
+mlspTimeSeriesScatter(tableinput, titlevar = NULL, title = NULL,
   subtitle = NULL, theme = "default", xlab = NULL,
   PlotMargins = c(0.25, 0, 3.25, 1), wraptitle = 90,
   legendPosition = "top", legendJust = "right", alpha = 1)
 }
 \arguments{
-\item{timeseriestable}{The source table created by make.ts()}
+\item{tableinput}{The source table created by make.ts()}
 
 \item{titlevar}{A quoted variable name. If supplied, the full text of this variable will be the title}
 
