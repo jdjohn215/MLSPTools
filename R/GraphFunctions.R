@@ -166,20 +166,29 @@ mlspCrosstabBar <- function(crosstabtable, titlevar = NULL, title = NULL, subtit
             legend.justification = legendJust,
             legend.title = element_blank(),
             legend.text = element_text(size = 13),
-            axis.text.x = element_text(angle = xlabelAngle))
+            axis.text.x = element_text(angle = xlabelAngle),
+            strip.background = element_rect(fill = "linen"),
+            strip.text = element_text(size = 13,
+                                      face = "bold"))
   } else if(theme == "MLSP"){
     p <- p +
       theme_MLSP() +
       theme(legend.position = legendPosition,
             legend.justification = legendJust,
             legend.title = element_blank(),
-            axis.text.x = element_text(angle = xlabelAngle))
+            axis.text.x = element_text(angle = xlabelAngle),
+            strip.background = element_rect(fill = "linen"),
+            strip.text = element_text(size = 13,
+                                      face = "bold"))
   } else{
     p <- p +
       theme(legend.position = legendPosition,
             legend.justification = legendJust,
             legend.title = element_blank(),
-            axis.text.x = element_text(angle = xlabelAngle))
+            axis.text.x = element_text(angle = xlabelAngle),
+            strip.background = element_rect(fill = "linen"),
+            strip.text = element_text(size = 13,
+                                      face = "bold"))
   }
 
   p
