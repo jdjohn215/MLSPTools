@@ -243,7 +243,7 @@ mlspTimeSeriesScatter <- function(tableinput, titlevar = NULL, title = NULL, sub
 
 
   # factor levels
-  fact.levels <- names(tableinput[2:(ncol(tableinput)-1)])
+  fact.levels <- names(tableinput[2:(ncol(tableinput))])
 
   if(names(tableinput[3]) == "pct"){
     tableinput <- tableinput %>%
