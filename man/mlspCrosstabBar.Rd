@@ -7,7 +7,8 @@
 mlspCrosstabBar(crosstabtable, titlevar = NULL, title = NULL,
   subtitle = NULL, theme = "default", LubarSlides = TRUE,
   PlotMargins = c(0.25, 0, 2, 1), wraptitle = 90,
-  legendPosition = "top", legendJust = "right")
+  legendPosition = "top", legendJust = "right", xlabelAngle = NULL,
+  xlabelWrap = 12)
 }
 \arguments{
 \item{titlevar}{A quoted variable name. If supplied, the full text of this variable will be the title}
@@ -28,9 +29,11 @@ it is 90 which matches the width of a LubarSlide.}
 
 \item{legendJust}{anchor point for positioning legend inside plot ("center" or two-element numeric vector) or the justification according to the plot area when positioned outside the plot}
 
-\item{toplinetable}{The source table created by make.crosstab()}
-
 \item{xlabelAngle}{optional, the angle of the x-axis labels}
+
+\item{xlabelWrap}{character length at which to wrap x-axis labels}
+
+\item{toplinetable}{The source table created by make.crosstab()}
 }
 \value{
 A dataframe.

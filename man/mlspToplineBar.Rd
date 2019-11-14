@@ -6,7 +6,8 @@
 \usage{
 mlspToplineBar(toplinetable, titlevar = NULL, title = NULL,
   subtitle = NULL, theme = NULL, LubarSlides = TRUE,
-  PlotMargins = c(0.25, 0, 2, 1), wraptitle = 90, xlabelAngle = NULL)
+  PlotMargins = c(0.25, 0, 2, 1), wraptitle = 90, xlabelAngle = NULL,
+  xlabelWrap = 12)
 }
 \arguments{
 \item{toplinetable}{The source table created by make.topline()}
@@ -26,6 +27,8 @@ theme_LubarSlides or theme_MLSP, respectively.}
 it is 90 which matches the width of a LubarSlide.}
 
 \item{xlabelAngle}{optional, the angle of the x-axis labels}
+
+\item{xlabelWrap}{character length at which to wrap x-axis labels}
 }
 \value{
 A dataframe.

@@ -15,6 +15,7 @@
 #' @param wraptitle = the length at which to wrap the character title string. By default
 #' it is 90 which matches the width of a LubarSlide.
 #' @param xlabelAngle optional, the angle of the x-axis labels
+#' @param xlabelWrap character length at which to wrap x-axis labels
 #'
 #' @return A dataframe.
 #' @export
@@ -29,7 +30,8 @@
 mlspToplineBar <- function(toplinetable, titlevar = NULL, title = NULL, subtitle = NULL,
                            theme = NULL, LubarSlides = TRUE,
                            PlotMargins = c(0.25, 0, 2, 1),
-                           wraptitle = 90, xlabelAngle = NULL){
+                           wraptitle = 90, xlabelAngle = NULL,
+                           xlabelWrap = 12){
   title.text <- "no title provided"
   if(!is.null(titlevar)){
     qs <- suppressMessages(readxl::read_excel("~/Dropbox/MuLawPoll1/IntegCurrentVariables.xlsx",
@@ -57,7 +59,7 @@ mlspToplineBar <- function(toplinetable, titlevar = NULL, title = NULL, subtitle
     geom_text(data = function(x) subset(x, `Valid Percent` > 92),
               aes(label = round(`Valid Percent`)), vjust = 1.2,
               size = barlabelsize, fontface = "bold", family = "serif") +
-    scale_x_discrete(name = NULL) +
+    scale_x_discrete(name = NULL, labels = function(x) str_wrap(x, width = xlabelWrap)) +
     scale_y_continuous(name = NULL, limits = c(0,100),
                        breaks = c(0,20,40,60,80,100),
                        labels = scales::percent_format(scale = 1, accuracy = 1),
@@ -99,6 +101,7 @@ mlspToplineBar <- function(toplinetable, titlevar = NULL, title = NULL, subtitle
 #' @param legendPosition the position of legends ("none", "left", "right", "bottom", "top", or two-element numeric vector)
 #' @param legendJust anchor point for positioning legend inside plot ("center" or two-element numeric vector) or the justification according to the plot area when positioned outside the plot
 #' @param xlabelAngle optional, the angle of the x-axis labels
+#' @param xlabelWrap character length at which to wrap x-axis labels
 #'
 #' @return A dataframe.
 #' @export
@@ -113,7 +116,8 @@ mlspCrosstabBar <- function(crosstabtable, titlevar = NULL, title = NULL, subtit
                            theme = "default", LubarSlides = TRUE,
                            PlotMargins = c(0.25, 0, 2, 1),
                            wraptitle = 90, legendPosition = "top",
-                           legendJust = "right", xlabelAngle = NULL){
+                           legendJust = "right", xlabelAngle = NULL,
+                           xlabelWrap = 12){
   title.text <- "no title provided"
   if(!is.null(titlevar)){
     qs <- suppressMessages(readxl::read_excel("~/Dropbox/MuLawPoll1/IntegCurrentVariables.xlsx",
@@ -140,7 +144,7 @@ mlspCrosstabBar <- function(crosstabtable, titlevar = NULL, title = NULL, subtit
     geom_text(aes(label = round(value)), vjust = -0.5,
               position = position_dodge2(width = 1),
               size = barlabelsize, fontface = "bold", family = "serif") +
-    scale_x_discrete(name = NULL) +
+    scale_x_discrete(name = NULL, labels = function(x) str_wrap(x, width = xlabelWrap)) +
     scale_y_continuous(name = NULL, limits = c(0,100),
                        breaks = c(0,20,40,60,80,100),
                        labels = scales::percent_format(scale = 1, accuracy = 1),
