@@ -135,9 +135,13 @@ mlspCrosstabBar <- function(crosstabtable, titlevar = NULL, title = NULL, subtit
     barlabelsize = 4
   }
 
+  # factor levels
+  fact.levels <- names(crosstabtable[2:(ncol(crosstabtable)-1)])
+
   p <- crosstabtable %>%
     rename(xgroup = 1) %>%
     pivot_longer(cols = -c(xgroup, n)) %>%
+    mutate(name = factor(name, levels = fact.levels)) %>%
     ggplot(aes(name, value, fill = xgroup)) +
     geom_hline(yintercept = 50, color = "gray60") +
     geom_bar(stat = "identity", position = "dodge") +
