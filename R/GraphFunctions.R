@@ -40,15 +40,21 @@ mlspToplineBar <- function(toplinetable, titlevar = NULL, title = NULL, subtitle
     title.text = title
   }
 
+  if(theme == "LubarSlides"){
+    barlabelsize = 6
+  } else {
+    barlabelsize = 4
+  }
+
   p <- toplinetable %>%
     ggplot(aes(Response, `Valid Percent`, fill = Response)) +
     geom_bar(stat = "identity") +
     geom_text(data = function(x) subset(x, `Valid Percent` < 93),
               aes(label = round(`Valid Percent`)), vjust = -0.5,
-              size = 4, fontface = "bold", family = "serif") +
+              size = barlabelsize, fontface = "bold", family = "serif") +
     geom_text(data = function(x) subset(x, `Valid Percent` > 92),
               aes(label = round(`Valid Percent`)), vjust = 1.2,
-              size = 4, fontface = "bold", family = "serif") +
+              size = barlabelsize, fontface = "bold", family = "serif") +
     scale_x_discrete(name = NULL) +
     scale_y_continuous(name = NULL, limits = c(0,100),
                        labels = scales::percent_format(scale = 1, accuracy = 1),
@@ -113,6 +119,12 @@ mlspCrosstabBar <- function(crosstabtable, titlevar = NULL, title = NULL, subtit
     title.text = title
   }
 
+  if(theme == "LubarSlides"){
+    barlabelsize = 6
+  } else {
+    barlabelsize = 4
+  }
+
   p <- crosstabtable %>%
     rename(xgroup = 1) %>%
     pivot_longer(cols = -c(xgroup, n)) %>%
@@ -120,7 +132,7 @@ mlspCrosstabBar <- function(crosstabtable, titlevar = NULL, title = NULL, subtit
     geom_bar(stat = "identity", position = "dodge") +
     geom_text(aes(label = round(value)), vjust = -0.5,
               position = position_dodge2(width = 1),
-              size = 4, fontface = "bold", family = "serif") +
+              size = barlabelsize, fontface = "bold", family = "serif") +
     scale_x_discrete(name = NULL) +
     scale_y_continuous(name = NULL, limits = c(0,100),
                        labels = scales::percent_format(scale = 1, accuracy = 1),
