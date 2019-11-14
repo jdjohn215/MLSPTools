@@ -13,7 +13,7 @@
 #' theme_LubarSlides or theme_MLSP, respectively.
 #' @param PlotMargins Only applicable when theme = "LubarSlides". It allows the user to manually change the plot.margin parameter.
 #' @param wraptitle = the length at which to wrap the character title string. By default
-#' it is 85 which matches the width of a LubarSlide.
+#' it is 90 which matches the width of a LubarSlide.
 #'
 #' @return A dataframe.
 #' @export
@@ -28,7 +28,7 @@
 mlspToplineBar <- function(toplinetable, titlevar = NULL, title = NULL, subtitle = NULL,
                            theme = NULL, LubarSlides = TRUE,
                            PlotMargins = c(0.25, 0, 2, 1),
-                           wraptitle = 85){
+                           wraptitle = 90){
   title.text <- "no title provided"
   if(!is.null(titlevar)){
     qs <- suppressMessages(readxl::read_excel("~/Dropbox/MuLawPoll1/IntegCurrentVariables.xlsx",
@@ -58,7 +58,7 @@ mlspToplineBar <- function(toplinetable, titlevar = NULL, title = NULL, subtitle
               size = barlabelsize, fontface = "bold", family = "serif") +
     scale_x_discrete(name = NULL) +
     scale_y_continuous(name = NULL, limits = c(0,100),
-                       breaks = c(0,20,40,60,80),
+                       breaks = c(0,20,40,60,80,100),
                        labels = scales::percent_format(scale = 1, accuracy = 1),
                        expand = c(0,0.01)) +
     labs(title = str_wrap(title.text, width = wraptitle),
@@ -92,7 +92,7 @@ mlspToplineBar <- function(toplinetable, titlevar = NULL, title = NULL, subtitle
 #' theme_LubarSlides or theme_MLSP, respectively.
 #' @param PlotMargins Only applicable when theme = "LubarSlides". It allows the user to manually change the plot.margin parameter.
 #' @param wraptitle = the length at which to wrap the character title string. By default
-#' it is 85 which matches the width of a LubarSlide.
+#' it is 90 which matches the width of a LubarSlide.
 #' @param legendPosition the position of legends ("none", "left", "right", "bottom", "top", or two-element numeric vector)
 #' @param legendJust anchor point for positioning legend inside plot ("center" or two-element numeric vector) or the justification according to the plot area when positioned outside the plot
 #'
@@ -108,7 +108,7 @@ mlspToplineBar <- function(toplinetable, titlevar = NULL, title = NULL, subtitle
 mlspCrosstabBar <- function(crosstabtable, titlevar = NULL, title = NULL, subtitle = NULL,
                            theme = "default", LubarSlides = TRUE,
                            PlotMargins = c(0.25, 0, 2, 1),
-                           wraptitle = 85, legendPosition = "top",
+                           wraptitle = 90, legendPosition = "top",
                            legendJust = "right"){
   title.text <- "no title provided"
   if(!is.null(titlevar)){
@@ -138,7 +138,7 @@ mlspCrosstabBar <- function(crosstabtable, titlevar = NULL, title = NULL, subtit
               size = barlabelsize, fontface = "bold", family = "serif") +
     scale_x_discrete(name = NULL) +
     scale_y_continuous(name = NULL, limits = c(0,100),
-                       breaks = c(0,20,40,60,80),
+                       breaks = c(0,20,40,60,80,100),
                        labels = scales::percent_format(scale = 1, accuracy = 1),
                        expand = c(0,0.01)) +
     labs(title = str_wrap(title.text, width = wraptitle),
@@ -183,7 +183,7 @@ mlspCrosstabBar <- function(crosstabtable, titlevar = NULL, title = NULL, subtit
 #' theme_LubarSlides or theme_MLSP, respectively.
 #' @param PlotMargins Only applicable when theme = "LubarSlides". It allows the user to manually change the plot.margin parameter.
 #' @param wraptitle = the length at which to wrap the character title string. By default
-#' it is 85 which matches the width of a LubarSlide.
+#' it is 90 which matches the width of a LubarSlide.
 #' @param alpha the transparency of the dots, defaults to opaque
 #'
 #' @return A dataframe.
@@ -198,7 +198,7 @@ mlspCrosstabBar <- function(crosstabtable, titlevar = NULL, title = NULL, subtit
 mlspTimeSeriesScatter <- function(timeseriestable, titlevar = NULL, title = NULL, subtitle = NULL,
                             theme = "default", LubarSlides = TRUE,
                             PlotMargins = c(0.25, 0, 2, 1),
-                            wraptitle = 85, legendPosition = "top",
+                            wraptitle = 90, legendPosition = "top",
                             legendJust = "right", alpha = 1){
   title.text <- "no title provided"
   if(!is.null(titlevar)){
