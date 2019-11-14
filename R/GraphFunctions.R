@@ -142,7 +142,7 @@ mlspCrosstabBar <- function(crosstabtable, titlevar = NULL, title = NULL, subtit
     rename(xgroup = 1) %>%
     pivot_longer(cols = -c(xgroup, n)) %>%
     mutate(name = factor(name, levels = fact.levels)) %>%
-    ggplot(aes(name, value, fill = xgroup)) +
+    ggplot(aes(name, value, fill = name)) +
     geom_hline(yintercept = 50, color = "gray60") +
     geom_bar(stat = "identity", position = "dodge") +
     geom_text(aes(label = round(value)), vjust = -0.5,
@@ -153,6 +153,7 @@ mlspCrosstabBar <- function(crosstabtable, titlevar = NULL, title = NULL, subtit
                        breaks = c(0,20,40,60,80,100),
                        labels = scales::percent_format(scale = 1, accuracy = 1),
                        expand = c(0,0.01)) +
+    facet_wrap(facets = vars(xgroup)) +
     labs(title = str_wrap(title.text, width = wraptitle),
          subtitle = subtitle)
 
