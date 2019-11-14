@@ -29,7 +29,7 @@
 
 
 mlspToplineBar <- function(toplinetable, titlevar = NULL, title = NULL, subtitle = NULL,
-                           theme = NULL,
+                           theme = NULL, xlab = NULL,
                            PlotMargins = c(0.25, 0, 2, 1),
                            wraptitle = 90, xlabelAngle = NULL,
                            xlabelWrap = 12){
