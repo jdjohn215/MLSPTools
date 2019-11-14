@@ -14,6 +14,7 @@
 #' @param PlotMargins Only applicable when theme = "LubarSlides". It allows the user to manually change the plot.margin parameter.
 #' @param wraptitle = the length at which to wrap the character title string. By default
 #' it is 90 which matches the width of a LubarSlide.
+#' @param xlabelAngle optional, the angle of the x-axis labels
 #'
 #' @return A dataframe.
 #' @export
@@ -28,7 +29,7 @@
 mlspToplineBar <- function(toplinetable, titlevar = NULL, title = NULL, subtitle = NULL,
                            theme = NULL, LubarSlides = TRUE,
                            PlotMargins = c(0.25, 0, 2, 1),
-                           wraptitle = 90){
+                           wraptitle = 90, xlabelAngle = NULL){
   title.text <- "no title provided"
   if(!is.null(titlevar)){
     qs <- suppressMessages(readxl::read_excel("~/Dropbox/MuLawPoll1/IntegCurrentVariables.xlsx",
@@ -67,10 +68,12 @@ mlspToplineBar <- function(toplinetable, titlevar = NULL, title = NULL, subtitle
   if(!is.null(theme)){
     if(theme == "LubarSlides"){
       p <- p +
-        theme_LubarSlides(PlotMargins = PlotMargins)
+        theme_LubarSlides(PlotMargins = PlotMargins) +
+        theme(axis.text.x = element_text(angle = xlabelAngle))
     } else if(theme == "MLSP"){
       p <- p +
-        theme_MLSP()
+        theme_MLSP() +
+        theme(axis.text.x = element_text(angle = xlabelAngle))
     }
   }
 
@@ -95,6 +98,7 @@ mlspToplineBar <- function(toplinetable, titlevar = NULL, title = NULL, subtitle
 #' it is 90 which matches the width of a LubarSlide.
 #' @param legendPosition the position of legends ("none", "left", "right", "bottom", "top", or two-element numeric vector)
 #' @param legendJust anchor point for positioning legend inside plot ("center" or two-element numeric vector) or the justification according to the plot area when positioned outside the plot
+#' @param xlabelAngle optional, the angle of the x-axis labels
 #'
 #' @return A dataframe.
 #' @export
@@ -150,18 +154,21 @@ mlspCrosstabBar <- function(crosstabtable, titlevar = NULL, title = NULL, subtit
       theme(legend.position = legendPosition,
             legend.justification = legendJust,
             legend.title = element_blank(),
-            legend.text = element_text(size = 12))
+            legend.text = element_text(size = 12),
+            axis.text.x = element_text(angle = xlabelAngle))
   } else if(theme == "MLSP"){
     p <- p +
       theme_MLSP() +
       theme(legend.position = legendPosition,
             legend.justification = legendJust,
-            legend.title = element_blank())
+            legend.title = element_blank(),
+            axis.text.x = element_text(angle = xlabelAngle))
   } else{
     p <- p +
       theme(legend.position = legendPosition,
             legend.justification = legendJust,
-            legend.title = element_blank())
+            legend.title = element_blank(),
+            axis.text.x = element_text(angle = xlabelAngle))
   }
 
   p
