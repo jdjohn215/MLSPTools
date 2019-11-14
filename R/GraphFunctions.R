@@ -158,7 +158,7 @@ mlspCrosstabBar <- function(crosstabtable, titlevar = NULL, title = NULL, subtit
       theme(legend.position = legendPosition,
             legend.justification = legendJust,
             legend.title = element_blank(),
-            legend.text = element_text(size = 12),
+            legend.text = element_text(size = 13),
             axis.text.x = element_text(angle = xlabelAngle))
   } else if(theme == "MLSP"){
     p <- p +
@@ -249,7 +249,7 @@ mlspTimeSeriesScatter <- function(timeseriestable, titlevar = NULL, title = NULL
       theme(legend.position = legendPosition,
             legend.justification = legendJust,
             legend.title = element_blank(),
-            legend.text = element_text(size = 12))
+            legend.text = element_text(size = 13))
   } else if(theme == "MLSP"){
     p <- p +
       theme_MLSP() +
