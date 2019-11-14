@@ -5,7 +5,7 @@
 #'  This function takes a topline table created with make.topline() and returns it as
 #'  a bar chart.
 #'
-#' @param toplinetable The source table created by make.topline()
+#' @param tableinput The source table created by make.topline()
 #' @param titlevar A quoted variable name. If supplied, the full text of this variable will be the title
 #' @param title A character string. If supplied it will be the graph's title.
 #' @param subtitle If supplied, it will be the graph's subtitle
@@ -28,7 +28,7 @@
 #' make.topline(variable = g2, mulaw = orig, remove = c("refused"), format = "long")
 
 
-mlspToplineBar <- function(toplinetable, titlevar = NULL, title = NULL, subtitle = NULL,
+mlspToplineBar <- function(tableinput, titlevar = NULL, title = NULL, subtitle = NULL,
                            theme = NULL, xlab = NULL,
                            PlotMargins = c(0.25, 0, 3.25, 1),
                            wraptitle = 90, xlabelAngle = NULL,
@@ -50,7 +50,7 @@ mlspToplineBar <- function(toplinetable, titlevar = NULL, title = NULL, subtitle
     barlabelsize = 4
   }
 
-  p <- toplinetable %>%
+  p <- tableinput %>%
     ggplot(aes(Response, `Valid Percent`, fill = Response)) +
     geom_hline(yintercept = 50, color = "gray60", linetype = "dashed") +
     geom_bar(stat = "identity") +
@@ -90,7 +90,7 @@ mlspToplineBar <- function(toplinetable, titlevar = NULL, title = NULL, subtitle
 #'  This function takes a crosstab table created with make.crosstab() and returns it as
 #'  a bar chart.
 #'
-#' @param toplinetable The source table created by make.crosstab()
+#' @param tableinput The source table created by make.crosstab()
 #' @param titlevar A quoted variable name. If supplied, the full text of this variable will be the title
 #' @param title A character string. If supplied it will be the graph's title.
 #' @param subtitle If supplied, it will be the graph's subtitle
@@ -115,7 +115,7 @@ mlspToplineBar <- function(toplinetable, titlevar = NULL, title = NULL, subtitle
 #'
 
 
-mlspCrosstabBar <- function(crosstabtable, titlevar = NULL, title = NULL, subtitle = NULL,
+mlspCrosstabBar <- function(tableinput, titlevar = NULL, title = NULL, subtitle = NULL,
                            theme = "default", xlab = NULL,
                            PlotMargins = c(0.25, 0, 3.25, 1),
                            wraptitle = 90, legendPosition = "top",
@@ -140,9 +140,9 @@ mlspCrosstabBar <- function(crosstabtable, titlevar = NULL, title = NULL, subtit
   }
 
   # factor levels
-  fact.levels <- names(crosstabtable[2:(ncol(crosstabtable)-1)])
+  fact.levels <- names(tableinput[2:(ncol(tableinput)-1)])
 
-  p <- crosstabtable %>%
+  p <- tableinput %>%
     rename(xgroup = 1) %>%
     pivot_longer(cols = -c(xgroup, n)) %>%
     mutate(name = factor(name, levels = fact.levels)) %>%
@@ -204,7 +204,7 @@ mlspCrosstabBar <- function(crosstabtable, titlevar = NULL, title = NULL, subtit
 #'  This function takes a topline table created with make.topline() and returns it as
 #'  a bar chart.
 #'
-#' @param timeseriestable The source table created by make.ts()
+#' @param tableinput The source table created by make.ts()
 #' @param titlevar A quoted variable name. If supplied, the full text of this variable will be the title
 #' @param title A character string. If supplied it will be the graph's title.
 #' @param subtitle If supplied, it will be the graph's subtitle
@@ -225,7 +225,7 @@ mlspCrosstabBar <- function(crosstabtable, titlevar = NULL, title = NULL, subtit
 #' @examples
 #' make.ts(g40, integ) %>% mlspTimeSeriesScatter()
 
-mlspTimeSeriesScatter <- function(timeseriestable, titlevar = NULL, title = NULL, subtitle = NULL,
+mlspTimeSeriesScatter <- function(tableinput, titlevar = NULL, title = NULL, subtitle = NULL,
                             theme = "default", xlab = NULL,
                             PlotMargins = c(0.25, 0, 3.25, 1),
                             wraptitle = 90, legendPosition = "top",
@@ -241,16 +241,16 @@ mlspTimeSeriesScatter <- function(timeseriestable, titlevar = NULL, title = NULL
     title.text = title
   }
 
-  if(names(timeseriestable[3]) == "pct"){
-    timeseriestable <- timeseriestable %>%
+  if(names(tableinput[3]) == "pct"){
+    tableinput <- tableinput %>%
       rename(PollDate = 1, yvar = 2)
-  } else if(names(timeseriestable[3]) != "pct"){
-    timeseriestable <- timeseriestable %>%
+  } else if(names(tableinput[3]) != "pct"){
+    tableinput <- tableinput %>%
       rename(PollDate = 1) %>%
       pivot_longer(cols = -PollDate, names_to = "yvar", values_to = "pct")
   }
 
-  p <- timeseriestable %>%
+  p <- tableinput %>%
     ggplot(aes(as.Date(PollDate), pct, color = yvar)) +
     geom_hline(yintercept = 50, color = "gray60", linetype = "dashed") +
     geom_point(size = 3, alpha = alpha) +
