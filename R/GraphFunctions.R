@@ -51,7 +51,7 @@ mlspToplineBar <- function(toplinetable, titlevar = NULL, title = NULL, subtitle
 
   p <- toplinetable %>%
     ggplot(aes(Response, `Valid Percent`, fill = Response)) +
-    geom_hline(yintercept = 50, color = "gray60") +
+    geom_hline(yintercept = 50, color = "gray60", linetype = "dashed") +
     geom_bar(stat = "identity") +
     geom_text(data = function(x) subset(x, `Valid Percent` < 93),
               aes(label = round(`Valid Percent`)), vjust = -0.5,
@@ -145,7 +145,7 @@ mlspCrosstabBar <- function(crosstabtable, titlevar = NULL, title = NULL, subtit
     pivot_longer(cols = -c(xgroup, n)) %>%
     mutate(name = factor(name, levels = fact.levels)) %>%
     ggplot(aes(name, value, fill = name)) +
-    geom_hline(yintercept = 50, color = "gray60") +
+    geom_hline(yintercept = 50, color = "gray60", linetype = "dashed") +
     geom_bar(stat = "identity", position = "dodge") +
     geom_text(aes(label = round(value)), vjust = -0.5,
               position = position_dodge2(width = 1),
@@ -249,7 +249,7 @@ mlspTimeSeriesScatter <- function(timeseriestable, titlevar = NULL, title = NULL
 
   p <- timeseriestable %>%
     ggplot(aes(as.Date(PollDate), pct, color = yvar)) +
-    geom_hline(yintercept = 50, color = "gray60") +
+    geom_hline(yintercept = 50, color = "gray60", linetype = "dashed") +
     geom_point(size = 3, alpha = alpha) +
     scale_x_date(name = NULL) +
     scale_y_continuous(name = NULL, limits = c(0,100),
