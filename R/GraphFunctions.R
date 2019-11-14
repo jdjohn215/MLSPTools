@@ -241,13 +241,18 @@ mlspTimeSeriesScatter <- function(tableinput, titlevar = NULL, title = NULL, sub
     title.text = title
   }
 
+
+  # factor levels
+  fact.levels <- names(tableinput[2:(ncol(tableinput)-1)])
+
   if(names(tableinput[3]) == "pct"){
     tableinput <- tableinput %>%
       rename(PollDate = 1, yvar = 2)
   } else if(names(tableinput[3]) != "pct"){
     tableinput <- tableinput %>%
       rename(PollDate = 1) %>%
-      pivot_longer(cols = -PollDate, names_to = "yvar", values_to = "pct")
+      pivot_longer(cols = -PollDate, names_to = "yvar", values_to = "pct") %>%
+      mutate(yvar = factor(yvar, levels = fact.levels))
   }
 
   p <- tableinput %>%
