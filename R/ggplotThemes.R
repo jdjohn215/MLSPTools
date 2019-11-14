@@ -6,7 +6,7 @@
 #' @import ggplot2
 #'
 
-theme_LubarSlides <- function(PlotMargins = c(0.25, 0, 2, 1)) {
+theme_LubarSlides <- function(PlotMargins = c(0.25, 0, 3.25, 1)) {
   ret <- theme(text = element_text(family = "serif"),
                legend.position = "none",
                panel.background = element_rect(fill = "linen"),

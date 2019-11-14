@@ -30,7 +30,7 @@
 
 mlspToplineBar <- function(toplinetable, titlevar = NULL, title = NULL, subtitle = NULL,
                            theme = NULL, xlab = NULL,
-                           PlotMargins = c(0.25, 0, 2, 1),
+                           PlotMargins = c(0.25, 0, 3.25, 1),
                            wraptitle = 90, xlabelAngle = NULL,
                            xlabelWrap = 12){
   title.text <- "no title provided"
@@ -117,7 +117,7 @@ mlspToplineBar <- function(toplinetable, titlevar = NULL, title = NULL, subtitle
 
 mlspCrosstabBar <- function(crosstabtable, titlevar = NULL, title = NULL, subtitle = NULL,
                            theme = "default", xlab = NULL,
-                           PlotMargins = c(0.25, 0, 2, 1),
+                           PlotMargins = c(0.25, 0, 3.25, 1),
                            wraptitle = 90, legendPosition = "top",
                            legendJust = "right", xlabelAngle = NULL,
                            xlabelWrap = 12,
@@ -227,7 +227,7 @@ mlspCrosstabBar <- function(crosstabtable, titlevar = NULL, title = NULL, subtit
 
 mlspTimeSeriesScatter <- function(timeseriestable, titlevar = NULL, title = NULL, subtitle = NULL,
                             theme = "default", xlab = NULL,
-                            PlotMargins = c(0.25, 0, 2, 1),
+                            PlotMargins = c(0.25, 0, 3.25, 1),
                             wraptitle = 90, legendPosition = "top",
                             legendJust = "right", alpha = 1){
   title.text <- "no title provided"
