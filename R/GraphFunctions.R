@@ -48,7 +48,7 @@ mlspToplineBar <- function(toplinetable, titlevar = NULL, title = NULL, subtitle
 
   p <- toplinetable %>%
     ggplot(aes(Response, `Valid Percent`, fill = Response)) +
-    geom_hline(yintercept = 0.5, color = "gray60") +
+    geom_hline(yintercept = 50, color = "gray60") +
     geom_bar(stat = "identity") +
     geom_text(data = function(x) subset(x, `Valid Percent` < 93),
               aes(label = round(`Valid Percent`)), vjust = -0.5,
@@ -58,7 +58,7 @@ mlspToplineBar <- function(toplinetable, titlevar = NULL, title = NULL, subtitle
               size = barlabelsize, fontface = "bold", family = "serif") +
     scale_x_discrete(name = NULL) +
     scale_y_continuous(name = NULL, limits = c(0,100),
-                       breaks = c(0,.2,.4,.6,.8),
+                       breaks = c(0,20,40,60,80),
                        labels = scales::percent_format(scale = 1, accuracy = 1),
                        expand = c(0,0.01)) +
     labs(title = str_wrap(title.text, width = wraptitle),
@@ -131,14 +131,14 @@ mlspCrosstabBar <- function(crosstabtable, titlevar = NULL, title = NULL, subtit
     rename(xgroup = 1) %>%
     pivot_longer(cols = -c(xgroup, n)) %>%
     ggplot(aes(name, value, fill = xgroup)) +
-    geom_hline(yintercept = 0.5, color = "gray60") +
+    geom_hline(yintercept = 50, color = "gray60") +
     geom_bar(stat = "identity", position = "dodge") +
     geom_text(aes(label = round(value)), vjust = -0.5,
               position = position_dodge2(width = 1),
               size = barlabelsize, fontface = "bold", family = "serif") +
     scale_x_discrete(name = NULL) +
     scale_y_continuous(name = NULL, limits = c(0,100),
-                       breaks = c(0,.2,.4,.6,.8),
+                       breaks = c(0,20,40,60,80),
                        labels = scales::percent_format(scale = 1, accuracy = 1),
                        expand = c(0,0.01)) +
     labs(title = str_wrap(title.text, width = wraptitle),
@@ -222,11 +222,11 @@ mlspTimeSeriesScatter <- function(timeseriestable, titlevar = NULL, title = NULL
 
   p <- timeseriestable %>%
     ggplot(aes(as.Date(PollDate), pct, color = yvar)) +
-    geom_hline(yintercept = 0.5, color = "gray60") +
+    geom_hline(yintercept = 50, color = "gray60") +
     geom_point(size = 3, alpha = alpha) +
     scale_x_date(name = NULL) +
     scale_y_continuous(name = NULL, limits = c(0,100),
-                       breaks = c(0,.2,.4,.6,.8),
+                       breaks = c(0,20,40,60,80,100),
                        labels = scales::percent_format(scale = 1, accuracy = 1),
                        expand = c(0,0.01)) +
     labs(title = str_wrap(title.text, width = wraptitle),
