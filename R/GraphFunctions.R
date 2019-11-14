@@ -102,6 +102,7 @@ mlspToplineBar <- function(toplinetable, titlevar = NULL, title = NULL, subtitle
 #' @param legendJust anchor point for positioning legend inside plot ("center" or two-element numeric vector) or the justification according to the plot area when positioned outside the plot
 #' @param xlabelAngle optional, the angle of the x-axis labels
 #' @param xlabelWrap character length at which to wrap x-axis labels
+#' @param facetncol optional, the number of facet columns
 #'
 #' @return A dataframe.
 #' @export
@@ -117,7 +118,8 @@ mlspCrosstabBar <- function(crosstabtable, titlevar = NULL, title = NULL, subtit
                            PlotMargins = c(0.25, 0, 2, 1),
                            wraptitle = 90, legendPosition = "top",
                            legendJust = "right", xlabelAngle = NULL,
-                           xlabelWrap = 12){
+                           xlabelWrap = 12,
+                           facetncol = NULL){
   title.text <- "no title provided"
   if(!is.null(titlevar)){
     qs <- suppressMessages(readxl::read_excel("~/Dropbox/MuLawPoll1/IntegCurrentVariables.xlsx",
@@ -153,7 +155,7 @@ mlspCrosstabBar <- function(crosstabtable, titlevar = NULL, title = NULL, subtit
                        breaks = c(0,20,40,60,80,100),
                        labels = scales::percent_format(scale = 1, accuracy = 1),
                        expand = c(0,0.01)) +
-    facet_wrap(facets = vars(xgroup)) +
+    facet_wrap(facets = vars(xgroup), ncol = facetncol) +
     labs(title = str_wrap(title.text, width = wraptitle),
          subtitle = subtitle)
 
