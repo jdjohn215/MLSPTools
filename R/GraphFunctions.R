@@ -17,6 +17,7 @@
 #' it is 90 which matches the width of a LubarSlide.
 #' @param xlabelAngle optional, the angle of the x-axis labels
 #' @param xlabelWrap character length at which to wrap x-axis labels
+#' @param xlabelSize specification of x-label size, defaults to 13
 #'
 #' @return A dataframe.
 #' @export
@@ -32,7 +33,7 @@ mlspToplineBar <- function(tableinput, titlevar = NULL, title = NULL, subtitle =
                            theme = NULL, xlab = NULL,
                            PlotMargins = c(0.25, 0, 3.25, 1),
                            wraptitle = 90, xlabelAngle = NULL,
-                           xlabelWrap = 12){
+                           xlabelWrap = 12, xlabelSize = 13){
   title.text <- "no title provided"
   if(!is.null(titlevar)){
     qs <- suppressMessages(readxl::read_excel("~/Dropbox/MuLawPoll1/IntegCurrentVariables.xlsx",
@@ -71,7 +72,8 @@ mlspToplineBar <- function(tableinput, titlevar = NULL, title = NULL, subtitle =
   if(!is.null(theme)){
     if(theme == "LubarSlides"){
       p <- p +
-        theme_LubarSlides(PlotMargins = PlotMargins) +
+        theme_LubarSlides(PlotMargins = PlotMargins,
+                          xlabelSize = xlabelSize) +
         theme(axis.text.x = element_text(angle = xlabelAngle))
     } else if(theme == "MLSP"){
       p <- p +
@@ -105,6 +107,7 @@ mlspToplineBar <- function(tableinput, titlevar = NULL, title = NULL, subtitle =
 #' @param xlabelAngle optional, the angle of the x-axis labels
 #' @param xlabelWrap character length at which to wrap x-axis labels
 #' @param facetncol optional, the number of facet columns
+#' @param xlabelSize specification of x-label size, defaults to 13
 #'
 #' @return A dataframe.
 #' @export
@@ -121,7 +124,8 @@ mlspCrosstabBar <- function(tableinput, titlevar = NULL, title = NULL, subtitle 
                            wraptitle = 90, legendPosition = "top",
                            legendJust = "right", xlabelAngle = NULL,
                            xlabelWrap = 12,
-                           facetncol = NULL){
+                           facetncol = NULL,
+                           xlabelSize = 13){
   title.text <- "no title provided"
   if(!is.null(titlevar)){
     qs <- suppressMessages(readxl::read_excel("~/Dropbox/MuLawPoll1/IntegCurrentVariables.xlsx",
@@ -163,7 +167,8 @@ mlspCrosstabBar <- function(tableinput, titlevar = NULL, title = NULL, subtitle 
 
   if(theme == "LubarSlides"){
     p <- p +
-      theme_LubarSlides(PlotMargins = PlotMargins) +
+      theme_LubarSlides(PlotMargins = PlotMargins,
+                        xlabelSize = xlabelSize) +
       theme(legend.position = legendPosition,
             legend.justification = legendJust,
             legend.title = element_blank(),
