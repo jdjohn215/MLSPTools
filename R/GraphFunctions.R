@@ -113,7 +113,7 @@ mlspCrosstabBar <- function(crosstabtable, titlevar = NULL, title = NULL, subtit
                            theme = "default", LubarSlides = TRUE,
                            PlotMargins = c(0.25, 0, 2, 1),
                            wraptitle = 90, legendPosition = "top",
-                           legendJust = "right"){
+                           legendJust = "right", xlabelAngle = NULL){
   title.text <- "no title provided"
   if(!is.null(titlevar)){
     qs <- suppressMessages(readxl::read_excel("~/Dropbox/MuLawPoll1/IntegCurrentVariables.xlsx",
