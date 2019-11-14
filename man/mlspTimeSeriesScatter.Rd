@@ -6,7 +6,7 @@
 \usage{
 mlspTimeSeriesScatter(timeseriestable, titlevar = NULL, title = NULL,
   subtitle = NULL, theme = "default", LubarSlides = TRUE,
-  PlotMargins = c(0.25, 0, 2, 1), wraptitle = 95,
+  PlotMargins = c(0.25, 0, 2, 1), wraptitle = 90,
   legendPosition = "top", legendJust = "right", alpha = 1)
 }
 \arguments{
@@ -24,7 +24,7 @@ theme_LubarSlides or theme_MLSP, respectively.}
 \item{PlotMargins}{Only applicable when theme = "LubarSlides". It allows the user to manually change the plot.margin parameter.}
 
 \item{wraptitle}{= the length at which to wrap the character title string. By default
-it is 95 which matches the width of a LubarSlide.}
+it is 90 which matches the width of a LubarSlide.}
 
 \item{alpha}{the transparency of the dots, defaults to opaque}
 }
