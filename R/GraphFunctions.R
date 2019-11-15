@@ -161,7 +161,7 @@ mlspCrosstabBar <- function(tableinput, titlevar = NULL, title = NULL, subtitle 
     geom_text(aes(label = round(value)), vjust = -0.5,
               position = position_dodge2(width = 1),
               size = barlabelsize, fontface = "bold", family = "serif") +
-    scale_x_discrete(name = xlab, labels = function(x) str_wrap(x, width = xlabelWrap)) +
+    scale_x_discrete(name = xlab) +
     scale_y_continuous(name = NULL, limits = c(0,100),
                        breaks = c(0,20,40,60,80,100),
                        labels = scales::percent_format(scale = 1, accuracy = 1),
