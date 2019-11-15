@@ -65,6 +65,17 @@ guess.palette <- function(table, fillPalette = "guess"){
     # this checks if fillPalette is the name of an RColorBrewer palette
   } else if(fillPalette %in% rownames(RColorBrewer::brewer.pal.info)) {
     mlspPalette <- RColorBrewer::brewer.pal(n = length(colorlevels), name = fillPalette)
+    # this checks if fillPalette is the name of one of my custom palettes
+  } else if(fillPalette %in% c("pid3", "pid5", "fav2", "fav4")) {
+    if(fillPalette == "pid3") {
+      mlspPalette <- pid3.palette
+    } else if(fillPalette == "pid5") {
+      mlspPalette <- pid5.palette
+    } else if(fillPalette == "fav4") {
+      mlspPalette <- fav4.palette
+    } else if(fillPalette == "fav2") {
+      mlspPalette <- fav2.palette
+    }
   }
 
   mlspPalette
