@@ -9,6 +9,8 @@
 #' @param titlevar A quoted variable name. If supplied, the full text of this variable will be the title
 #' @param title A character string. If supplied it will be the graph's title.
 #' @param subtitle If supplied, it will be the graph's subtitle
+#' @param fillPalette defaults to "guess", in which case a "best-guess" palette is assigned.
+#' This argument also accepts the name of ColorBrewer palette or a character vector of color names.
 #' @param theme Optional. One of either "LubarSlides" or "MLSP". This sets the theme to
 #' theme_LubarSlides or theme_MLSP, respectively.
 #' @param xlab an optional x-axis name
@@ -30,7 +32,8 @@
 
 
 mlspToplineBar <- function(tableinput, titlevar = NULL, title = NULL, subtitle = NULL,
-                           theme = NULL, xlab = NULL,
+                           fillPalette = "guess",
+                           theme = "default", xlab = NULL,
                            PlotMargins = c(0.25, 0, 3.25, 1),
                            wraptitle = 90, xlabelAngle = NULL,
                            xlabelWrap = 12, xlabelSize = 13){
@@ -55,6 +58,8 @@ mlspToplineBar <- function(tableinput, titlevar = NULL, title = NULL, subtitle =
     ggplot(aes(Response, `Valid Percent`, fill = Response)) +
     geom_hline(yintercept = 50, color = "gray60", linetype = "dashed") +
     geom_bar(stat = "identity") +
+    scale_fill_manual(values = suppressMessages(guess.palette(table = tableinput,
+                                                              fillPalette = fillPalette))) +
     geom_text(data = function(x) subset(x, `Valid Percent` < 93),
               aes(label = round(`Valid Percent`)), vjust = -0.5,
               size = barlabelsize, fontface = "bold", family = "serif") +
@@ -96,6 +101,8 @@ mlspToplineBar <- function(tableinput, titlevar = NULL, title = NULL, subtitle =
 #' @param titlevar A quoted variable name. If supplied, the full text of this variable will be the title
 #' @param title A character string. If supplied it will be the graph's title.
 #' @param subtitle If supplied, it will be the graph's subtitle
+#' @param fillPalette defaults to "guess", in which case a "best-guess" palette is assigned.
+#' This argument also accepts the name of ColorBrewer palette or a character vector of color names.
 #' @param theme Optional. One of either "LubarSlides" or "MLSP". This sets the theme to
 #' theme_LubarSlides or theme_MLSP, respectively.
 #' @param xlab an optional x-axis name
@@ -119,7 +126,8 @@ mlspToplineBar <- function(tableinput, titlevar = NULL, title = NULL, subtitle =
 
 
 mlspCrosstabBar <- function(tableinput, titlevar = NULL, title = NULL, subtitle = NULL,
-                           theme = "default", xlab = NULL,
+                            fillPalette = "guess",
+                            theme = "default", xlab = NULL,
                            PlotMargins = c(0.25, 0, 3.25, 1),
                            wraptitle = 90, legendPosition = "top",
                            legendJust = "right", xlabelAngle = NULL,
@@ -153,6 +161,8 @@ mlspCrosstabBar <- function(tableinput, titlevar = NULL, title = NULL, subtitle 
     ggplot(aes(name, value, fill = name)) +
     geom_hline(yintercept = 50, color = "gray60", linetype = "dashed") +
     geom_bar(stat = "identity", position = "dodge") +
+    scale_fill_manual(values = suppressMessages(guess.palette(table = tableinput,
+                                                              fillPalette = fillPalette))) +
     geom_text(aes(label = round(value)), vjust = -0.5,
               position = position_dodge2(width = 1),
               size = barlabelsize, fontface = "bold", family = "serif") +
@@ -213,6 +223,8 @@ mlspCrosstabBar <- function(tableinput, titlevar = NULL, title = NULL, subtitle 
 #' @param titlevar A quoted variable name. If supplied, the full text of this variable will be the title
 #' @param title A character string. If supplied it will be the graph's title.
 #' @param subtitle If supplied, it will be the graph's subtitle
+#' @param fillPalette defaults to "guess", in which case a "best-guess" palette is assigned.
+#' This argument also accepts the name of ColorBrewer palette or a character vector of color names.
 #' @param theme Optional. One of either "LubarSlides" or "MLSP". This sets the theme to
 #' theme_LubarSlides or theme_MLSP, respectively.
 #' @param xlab an optional x-axis name
@@ -231,6 +243,7 @@ mlspCrosstabBar <- function(tableinput, titlevar = NULL, title = NULL, subtitle 
 #' make.ts(g40, integ) %>% mlspTimeSeriesScatter()
 
 mlspTimeSeriesScatter <- function(tableinput, titlevar = NULL, title = NULL, subtitle = NULL,
+                                  fillPalette = "guess",
                             theme = "default", xlab = NULL,
                             PlotMargins = c(0.25, 0, 3.25, 1),
                             wraptitle = 90, legendPosition = "top",
@@ -247,6 +260,8 @@ mlspTimeSeriesScatter <- function(tableinput, titlevar = NULL, title = NULL, sub
   }
 
 
+  # for graphing purposes
+  orig.table <- tableinput
 
   if(names(tableinput[3]) == "pct"){
     tableinput <- tableinput %>%
@@ -264,6 +279,8 @@ mlspTimeSeriesScatter <- function(tableinput, titlevar = NULL, title = NULL, sub
     ggplot(aes(as.Date(PollDate), pct, color = yvar)) +
     geom_hline(yintercept = 50, color = "gray60", linetype = "dashed") +
     geom_point(size = 3, alpha = alpha) +
+    scale_color_manual(values = suppressMessages(guess.palette(table = orig.table,
+                                                               fillPalette = fillPalette))) +
     scale_x_date(name = xlab) +
     scale_y_continuous(name = NULL, limits = c(0,100),
                        breaks = c(0,20,40,60,80,100),

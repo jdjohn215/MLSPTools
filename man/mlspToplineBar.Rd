@@ -5,9 +5,9 @@
 \title{Make a simple bar graph of a topline table}
 \usage{
 mlspToplineBar(tableinput, titlevar = NULL, title = NULL,
-  subtitle = NULL, theme = NULL, xlab = NULL, PlotMargins = c(0.25,
-  0, 3.25, 1), wraptitle = 90, xlabelAngle = NULL, xlabelWrap = 12,
-  xlabelSize = 13)
+  subtitle = NULL, fillPalette = "guess", theme = "default",
+  xlab = NULL, PlotMargins = c(0.25, 0, 3.25, 1), wraptitle = 90,
+  xlabelAngle = NULL, xlabelWrap = 12, xlabelSize = 13)
 }
 \arguments{
 \item{tableinput}{The source table created by make.topline()}
@@ -17,6 +17,9 @@ mlspToplineBar(tableinput, titlevar = NULL, title = NULL,
 \item{title}{A character string. If supplied it will be the graph's title.}
 
 \item{subtitle}{If supplied, it will be the graph's subtitle}
+
+\item{fillPalette}{defaults to "guess", in which case a "best-guess" palette is assigned.
+This argument also accepts the name of ColorBrewer palette or a character vector of color names.}
 
 \item{theme}{Optional. One of either "LubarSlides" or "MLSP". This sets the theme to
 theme_LubarSlides or theme_MLSP, respectively.}
