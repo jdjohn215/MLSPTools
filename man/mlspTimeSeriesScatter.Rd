@@ -6,7 +6,7 @@
 \usage{
 mlspTimeSeriesScatter(tableinput, titlevar = NULL, title = NULL,
   subtitle = NULL, fillPalette = "guess", theme = "default",
-  xlab = NULL, PlotMargins = c(0.25, 0, 3.25, 1), wraptitle = 90,
+  xlab = NULL, PlotMargins = c(0.25, 0, 3.5, 0.5), wraptitle = 90,
   legendPosition = "top", legendJust = "right", alpha = 1)
 }
 \arguments{
