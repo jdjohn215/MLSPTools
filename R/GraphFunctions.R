@@ -34,9 +34,9 @@
 mlspToplineBar <- function(tableinput, titlevar = NULL, title = NULL, subtitle = NULL,
                            fillPalette = "guess",
                            theme = "default", xlab = NULL,
-                           PlotMargins = c(0.25, 0, 3.25, 1),
+                           PlotMargins = c(0.25, 0, 3.5, 0.5),
                            wraptitle = 90, xlabelAngle = NULL,
-                           xlabelWrap = 12, xlabelSize = 13){
+                           xlabelWrap = 12, xlabelSize = 14){
   title.text <- "no title provided"
   if(!is.null(titlevar)){
     qs <- suppressMessages(readxl::read_excel("~/Dropbox/MuLawPoll1/IntegCurrentVariables.xlsx",
@@ -49,14 +49,14 @@ mlspToplineBar <- function(tableinput, titlevar = NULL, title = NULL, subtitle =
   }
 
   if(theme == "LubarSlides"){
-    barlabelsize = 6
+    barlabelsize = 7
   } else {
     barlabelsize = 4
   }
 
   p <- tableinput %>%
     ggplot(aes(Response, `Valid Percent`, fill = Response)) +
-    geom_hline(yintercept = 50, color = "gray60", linetype = "dashed") +
+    geom_hline(yintercept = 50, color = "gray80") +
     geom_bar(stat = "identity") +
     scale_fill_manual(values = suppressMessages(guess.palette(table = tableinput,
                                                               fillPalette = fillPalette))) +
@@ -111,10 +111,7 @@ mlspToplineBar <- function(tableinput, titlevar = NULL, title = NULL, subtitle =
 #' it is 90 which matches the width of a LubarSlide.
 #' @param legendPosition the position of legends ("none", "left", "right", "bottom", "top", or two-element numeric vector)
 #' @param legendJust anchor point for positioning legend inside plot ("center" or two-element numeric vector) or the justification according to the plot area when positioned outside the plot
-#' @param xlabelAngle optional, the angle of the x-axis labels
-#' @param xlabelWrap character length at which to wrap x-axis labels
 #' @param facetncol optional, the number of facet columns
-#' @param xlabelSize specification of x-label size, defaults to 13
 #'
 #' @return A dataframe.
 #' @export
@@ -128,12 +125,10 @@ mlspToplineBar <- function(tableinput, titlevar = NULL, title = NULL, subtitle =
 mlspCrosstabBar <- function(tableinput, titlevar = NULL, title = NULL, subtitle = NULL,
                             fillPalette = "guess",
                             theme = "default", xlab = NULL,
-                           PlotMargins = c(0.25, 0, 3.25, 1),
+                           PlotMargins = c(0.25, 0, 3.5, 0.5),
                            wraptitle = 90, legendPosition = "top",
-                           legendJust = "right", xlabelAngle = NULL,
-                           xlabelWrap = 12,
-                           facetncol = NULL,
-                           xlabelSize = 13){
+                           legendJust = "right",
+                           facetncol = NULL){
   title.text <- "no title provided"
   if(!is.null(titlevar)){
     qs <- suppressMessages(readxl::read_excel("~/Dropbox/MuLawPoll1/IntegCurrentVariables.xlsx",
@@ -146,7 +141,7 @@ mlspCrosstabBar <- function(tableinput, titlevar = NULL, title = NULL, subtitle 
   }
 
   if(theme == "LubarSlides"){
-    barlabelsize = 6
+    barlabelsize = 7
   } else {
     barlabelsize = 4
   }
@@ -159,7 +154,7 @@ mlspCrosstabBar <- function(tableinput, titlevar = NULL, title = NULL, subtitle 
     pivot_longer(cols = -c(xgroup, n)) %>%
     mutate(name = factor(name, levels = fact.levels)) %>%
     ggplot(aes(name, value, fill = name)) +
-    geom_hline(yintercept = 50, color = "gray60", linetype = "dashed") +
+    geom_hline(yintercept = 50, color = "gray80") +
     geom_bar(stat = "identity", position = "dodge") +
     scale_fill_manual(values = suppressMessages(guess.palette(table = tableinput,
                                                               fillPalette = fillPalette))) +
@@ -177,13 +172,12 @@ mlspCrosstabBar <- function(tableinput, titlevar = NULL, title = NULL, subtitle 
 
   if(theme == "LubarSlides"){
     p <- p +
-      theme_LubarSlides(PlotMargins = PlotMargins,
-                        xlabelSize = xlabelSize) +
+      theme_LubarSlides(PlotMargins = PlotMargins) +
       theme(legend.position = legendPosition,
             legend.justification = legendJust,
             legend.title = element_blank(),
             legend.text = element_text(size = 13),
-            axis.text.x = element_text(angle = xlabelAngle),
+            axis.text.x = element_blank(),
             strip.background = element_rect(fill = "linen"),
             strip.text = element_text(size = 13,
                                       face = "bold"))
@@ -245,7 +239,7 @@ mlspCrosstabBar <- function(tableinput, titlevar = NULL, title = NULL, subtitle 
 mlspTimeSeriesScatter <- function(tableinput, titlevar = NULL, title = NULL, subtitle = NULL,
                                   fillPalette = "guess",
                             theme = "default", xlab = NULL,
-                            PlotMargins = c(0.25, 0, 3.25, 1),
+                            PlotMargins = c(0.25, 0, 3.5, 0.5),
                             wraptitle = 90, legendPosition = "top",
                             legendJust = "right", alpha = 1){
   title.text <- "no title provided"
@@ -277,7 +271,7 @@ mlspTimeSeriesScatter <- function(tableinput, titlevar = NULL, title = NULL, sub
 
   p <- tableinput %>%
     ggplot(aes(as.Date(PollDate), pct, color = yvar)) +
-    geom_hline(yintercept = 50, color = "gray60", linetype = "dashed") +
+    geom_hline(yintercept = 50, color = "gray80") +
     geom_point(size = 3, alpha = alpha) +
     scale_color_manual(values = suppressMessages(guess.palette(table = orig.table,
                                                                fillPalette = fillPalette))) +
@@ -295,7 +289,7 @@ mlspTimeSeriesScatter <- function(tableinput, titlevar = NULL, title = NULL, sub
       theme(legend.position = legendPosition,
             legend.justification = legendJust,
             legend.title = element_blank(),
-            legend.text = element_text(size = 13))
+            legend.text = element_text(size = 14))
   } else if(theme == "MLSP"){
     p <- p +
       theme_MLSP() +
