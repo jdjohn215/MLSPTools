@@ -55,6 +55,7 @@ mlspToplineBar <- function(tableinput, titlevar = NULL, title = NULL, subtitle =
   }
 
   p <- tableinput %>%
+    filter(Response != "(Missing)") %>%
     ggplot(aes(Response, `Valid Percent`, fill = Response)) +
     geom_hline(yintercept = 50, color = "gray80") +
     geom_bar(stat = "identity") +
