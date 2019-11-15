@@ -13,7 +13,7 @@ theme_LubarSlides <- function(PlotMargins = c(0.25, 0, 3.25, 1), xlabelSize = 13
                axis.line.y = element_line(size = 0.75, color = "gray50"),
                axis.line.x = element_line(size = 0.75, color = "gray50"),
                axis.ticks = element_blank(),
-               title = element_text(face = "bold", size = 15),
+               title = element_text(size = 15),
                axis.text.y = element_text(size = 14),
                axis.text.x = element_text(size = xlabelSize),
                plot.margin = unit(PlotMargins, "lines"))
