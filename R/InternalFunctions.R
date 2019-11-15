@@ -34,6 +34,12 @@ guess.palette <- function(table, fillPalette = "guess"){
   colorlevels <- color.levels(table) %>%
     str_to_lower()
 
+  # define the palettes
+  pid3.palette <- c("#cb181d", "#6a51a3", "#2171b5", "#4daf4a", "#ff7f00", "#fb9a99")
+  pid5.palette <- c("#a50f15", "#ef3b2c", "#6a51a3", "#4292c6", "#08519c", "#4daf4a", "#ff7f00", "#fb9a99")
+  fav2.palette <- c("#238b45", "#6a51a3", "#ff7f00", "#e41a1c", "#fb9a99")
+  fav4.palette <- c("#006d2c", "#41ab5d", "#807dba", "#54278f", "#ff7f00", "#e41a1c", "#fb9a99")
+
   if(fillPalette == "guess"){
     # Check if it's a party ID variable
     if(colorlevels[1] == "republican"){
@@ -54,7 +60,7 @@ guess.palette <- function(table, fillPalette = "guess"){
       mlspPalette <- RColorBrewer::brewer.pal(n = length(colorlevels), name = "Dark2")
     }
     # this next bit checks if the fillPalette is a supplied vector of colors
-  } else if(str_detect(fillPalette, "#")) {
+  } else if(length(fillPalette) > 1) {
     mlspPalette <- fillPalette
     # this checks if fillPalette is the name of an RColorBrewer palette
   } else if(fillPalette %in% rownames(RColorBrewer::brewer.pal.info)) {
