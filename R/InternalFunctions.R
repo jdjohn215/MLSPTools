@@ -55,6 +55,10 @@ guess.palette <- function(table, fillPalette = "guess"){
     } else if(colorlevels[1] %in% c("strongly approve", "strongly support", "strongly favor")){
       mlspPalette <- fav4.palette
     }
+    # assign fav2 if only 4 response categories
+    else if(length(colorlevels) < 5) {
+      mlspPalette <- fav2.palette
+    }
     # add default palette if none of the above conditions are satisfied
     else {
       mlspPalette <- RColorBrewer::brewer.pal(n = length(colorlevels), name = "Dark2")
