@@ -50,9 +50,9 @@ guess.palette <- function(table, fillPalette = "guess"){
         mlspPalette <- pid5.palette
       }
       #this covers 3-cat support/oppose question
-    } else if(colorlevels[1] %in% c("approve", "support", "favor")){
+    } else if(colorlevels[1] %in% c("approve", "support", "favor", "favorable")){
       mlspPalette <- fav2.palette
-    } else if(colorlevels[1] %in% c("strongly approve", "strongly support", "strongly favor")){
+    } else if(colorlevels[1] %in% c("strongly approve", "strongly support", "strongly favor", "strongly favorable")){
       mlspPalette <- fav4.palette
     }
     # assign fav2 if only 4 response categories
