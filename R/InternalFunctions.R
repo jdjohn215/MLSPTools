@@ -36,7 +36,7 @@ guess.palette <- function(table, fillPalette = "guess"){
 
   # define the palettes
   pid3.palette <- c("#ef3b2c", "#807dba", "#4292c6", "#4daf4a", "#ff7f00", "#fb9a99")
-  pid5.palette <- c("#a50f15", "#ef3b2c", "#6a51a3", "#4292c6", "#08519c", "#4daf4a", "#ff7f00", "#fb9a99")
+  pid5.palette <- c("#ef3b2c", "#fc9272", "#807dba", "#9ecae1", "#4292c6", "#4daf4a", "#ff7f00", "#fb9a99")
   fav2.palette <- c("#238b45", "#6a51a3", "#ff7f00", "#e41a1c", "#fb9a99")
   fav4.palette <- c("#006d2c", "#41ab5d", "#807dba", "#54278f", "#ff7f00", "#e41a1c", "#fb9a99")
 
