@@ -72,7 +72,7 @@ guess.palette <- function(table, fillPalette = "guess"){
     }
     # This covers 4-cat sequential responses
     else if(word(colorlevels[1]) == "very" & word(colorlevels[4], 1, 3) == "not at all") {
-      mlspPalette <- "sequence4"
+      mlspPalette <- sequence4
     } else if(colorlevels[1] == "living comfortably") {
       mlspPalette <- sequence3
     }
