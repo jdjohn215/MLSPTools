@@ -41,10 +41,10 @@ guess.palette <- function(table, fillPalette = "guess"){
   fav4.palette <- c("#006d2c", "#41ab5d", "#807dba", "#54278f", "#ff7f00", "#e41a1c", "#fb9a99")
 
   # this palette is for races with a dem and republican in that order
-  voteDR.palette <- c("#74add1", "#fbb4ae", "#7fc97f", "#beaed4", "#fdc086", "#ffff99")
+  voteDR.palette <- c("#b3cde3", "#fbb4ae", "#7fc97f", "#beaed4", "#fdc086", "#ffff99")
 
   # this palette is for races with a rep and dem in that order
-  voteRD.palette <- c("#fbb4ae", "#74add1", "#7fc97f", "#beaed4", "#fdc086", "#ffff99")
+  voteRD.palette <- c("#fbb4ae", "#b3cde3", "#7fc97f", "#beaed4", "#fdc086", "#ffff99")
 
   # this palette is for 4-category sequences, where category 1 is darkest
   sequence4 <- c("#006d2c", "#31a354", "#74c476", "#a1d99b", "#fdc086", "#beaed4", "#ffff99")
