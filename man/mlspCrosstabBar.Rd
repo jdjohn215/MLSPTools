@@ -7,7 +7,8 @@
 mlspCrosstabBar(tableinput, titlevar = NULL, title = NULL,
   subtitle = NULL, fillPalette = "guess", theme = "default",
   xlab = NULL, PlotMargins = c(0.25, 0, 3.5, 0.5), wraptitle = 90,
-  legendPosition = "top", legendJust = "right", facetncol = NULL)
+  legendPosition = "top", legendJust = "right", facetncol = NULL,
+  ylimits = NULL)
 }
 \arguments{
 \item{tableinput}{The source table created by make.crosstab()}
@@ -36,6 +37,8 @@ it is 90 which matches the width of a LubarSlide.}
 \item{legendJust}{anchor point for positioning legend inside plot ("center" or two-element numeric vector) or the justification according to the plot area when positioned outside the plot}
 
 \item{facetncol}{optional, the number of facet columns}
+
+\item{ylimits}{optional y-axis limits parameter}
 }
 \value{
 A dataframe.

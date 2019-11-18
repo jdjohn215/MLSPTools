@@ -113,6 +113,7 @@ mlspToplineBar <- function(tableinput, titlevar = NULL, title = NULL, subtitle =
 #' @param legendPosition the position of legends ("none", "left", "right", "bottom", "top", or two-element numeric vector)
 #' @param legendJust anchor point for positioning legend inside plot ("center" or two-element numeric vector) or the justification according to the plot area when positioned outside the plot
 #' @param facetncol optional, the number of facet columns
+#' @param ylimits optional y-axis limits parameter
 #'
 #' @return A dataframe.
 #' @export
@@ -129,7 +130,8 @@ mlspCrosstabBar <- function(tableinput, titlevar = NULL, title = NULL, subtitle 
                            PlotMargins = c(0.25, 0, 3.5, 0.5),
                            wraptitle = 90, legendPosition = "top",
                            legendJust = "right",
-                           facetncol = NULL){
+                           facetncol = NULL,
+                           ylimits = NULL){
   title.text <- "no title provided"
   if(!is.null(titlevar)){
     qs <- suppressMessages(readxl::read_excel("~/Dropbox/MuLawPoll1/IntegCurrentVariables.xlsx",
@@ -157,11 +159,13 @@ mlspCrosstabBar <- function(tableinput, titlevar = NULL, title = NULL, subtitle 
     mutate(name = factor(name, levels = fact.levels))
 
   #pick ylimits
-  if(max(table.longer$value) > 90){
+  if(!is.null(ylimits)){
+    ylimits = ylimits
+    } else if(max(table.longer$value) > 90){
     ylimits = c(0,109)
-  } else {
+    } else {
     ylimits = c(0,100)
-  }
+    }
 
   p <- table.longer %>%
     ggplot(aes(name, value, fill = name)) +
