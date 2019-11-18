@@ -150,10 +150,20 @@ mlspCrosstabBar <- function(tableinput, titlevar = NULL, title = NULL, subtitle 
   # factor levels
   fact.levels <- names(tableinput[2:(ncol(tableinput)-1)])
 
-  p <- tableinput %>%
+  # pivot data
+  table.longer <- tableinput %>%
     rename(xgroup = 1) %>%
     pivot_longer(cols = -c(xgroup, n)) %>%
-    mutate(name = factor(name, levels = fact.levels)) %>%
+    mutate(name = factor(name, levels = fact.levels))
+
+  #pick ylimits
+  if(max(table.longer$value) > 90){
+    ylimits = c(0,109)
+  } else {
+    ylimits = c(0,100)
+  }
+
+  p <- table.longer %>%
     ggplot(aes(name, value, fill = name)) +
     geom_hline(yintercept = 50, color = "gray80") +
     geom_bar(stat = "identity", position = "dodge") +
@@ -163,7 +173,7 @@ mlspCrosstabBar <- function(tableinput, titlevar = NULL, title = NULL, subtitle 
               position = position_dodge2(width = 1),
               size = barlabelsize, fontface = "bold", family = "serif") +
     scale_x_discrete(name = xlab) +
-    scale_y_continuous(name = NULL, limits = c(0,100),
+    scale_y_continuous(name = NULL, limits = ylimits,
                        breaks = c(0,20,40,60,80,100),
                        labels = scales::percent_format(scale = 1, accuracy = 1),
                        expand = c(0,0.01)) +
@@ -188,7 +198,6 @@ mlspCrosstabBar <- function(tableinput, titlevar = NULL, title = NULL, subtitle 
       theme(legend.position = legendPosition,
             legend.justification = legendJust,
             legend.title = element_blank(),
-            axis.text.x = element_text(angle = xlabelAngle),
             strip.background = element_rect(fill = "linen"),
             strip.text = element_text(size = 13,
                                       face = "bold"))
@@ -197,7 +206,6 @@ mlspCrosstabBar <- function(tableinput, titlevar = NULL, title = NULL, subtitle 
       theme(legend.position = legendPosition,
             legend.justification = legendJust,
             legend.title = element_blank(),
-            axis.text.x = element_text(angle = xlabelAngle),
             strip.background = element_rect(fill = "linen"),
             strip.text = element_text(size = 13,
                                       face = "bold"))
