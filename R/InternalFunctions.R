@@ -65,9 +65,9 @@ guess.palette <- function(table, fillPalette = "guess"){
     } else if(colorlevels[1] %in% c("strongly approve", "strongly support", "strongly favor", "strongly favorable")){
       mlspPalette <- fav4.palette
       # this covers head-to-heads against Trump
-    } else if(colorlevels[2] == "donald trump") {
+    } else if(colorlevels[2] %in% c("donald trump", "trump", "walker", "scott walker")) {
       mlspPalette <- voteDR.palette
-    } else if(colorlevels[1] == "donald trump") {
+    } else if(colorlevels[1] %in% c("donald trump", "trump", "walker", "scott walker")) {
       mlspPalette <- voteRD.palette
     }
     # This covers 4-cat sequential responses
