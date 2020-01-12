@@ -42,7 +42,8 @@ mlspToplineBar <- function(tableinput, titlevar = NULL, title = NULL, subtitle =
     qs <- suppressMessages(readxl::read_excel("~/Dropbox/MuLawPoll1/IntegCurrentVariables.xlsx",
                                               sheet = 2)) %>%
       filter(!is.na(Q)) %>%
-      select(variable = 1, question = 7)
+      select(variable = 1, question = 7) %>%
+      mutate(question = str_replace_all(string = question, pattern = "[’]", replacement = "'"))
     title.text <- qs$question[qs$variable == titlevar]
   } else if(!is.null(title)){
     title.text = title
@@ -137,7 +138,8 @@ mlspCrosstabBar <- function(tableinput, titlevar = NULL, title = NULL, subtitle 
     qs <- suppressMessages(readxl::read_excel("~/Dropbox/MuLawPoll1/IntegCurrentVariables.xlsx",
                                               sheet = 2)) %>%
       filter(!is.na(Q)) %>%
-      select(variable = 1, question = 7)
+      select(variable = 1, question = 7) %>%
+      mutate(question = str_replace_all(string = question, pattern = "[’]", replacement = "'"))
     title.text <- qs$question[qs$variable == titlevar]
   } else if(!is.null(title)){
     title.text = title
@@ -260,7 +262,8 @@ mlspTimeSeriesScatter <- function(tableinput, titlevar = NULL, title = NULL, sub
     qs <- suppressMessages(readxl::read_excel("~/Dropbox/MuLawPoll1/IntegCurrentVariables.xlsx",
                                               sheet = 2)) %>%
       filter(!is.na(Q)) %>%
-      select(variable = 1, question = 7)
+      select(variable = 1, question = 7) %>%
+      mutate(question = str_replace_all(string = question, pattern = "[’]", replacement = "'"))
     title.text <- qs$question[qs$variable == titlevar]
   } else if(!is.null(title)){
     title.text = title
