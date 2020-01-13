@@ -37,11 +37,6 @@ make.crosstab.wave <- function(x, y, mulaw, remove,
                                date = zpollenddate,
                                weight = zwave_weight,
                                n = TRUE){
-  # Some Nonstandard Evaluation witchcraft I don't understand
-  x <- enquo(x)
-  y <- enquo(y)
-  date <- enquo(date)
-  weight <- enquo(weight)
 
   # if remove is missing replace with empty string
   if(missing(remove)){
