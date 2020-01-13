@@ -20,14 +20,10 @@
 #' @importFrom forcats fct_explicit_na
 #'
 #' @examples
-#' make.topline(variable = g2, mulaw = orig, remove = c("refused"), format = "long")
+#' make.topline(variable = g2, mulaw = orig, remove = c("refused"))
 #'
 make.topline <- function(variable, mulaw, weight = zwave_weight,
                          n = TRUE, cumsum = TRUE, remove){
-
-  # Some Nonstandard Evaluation witchcraft I don't understand
-  variable <- enquo(variable)
-  weight <- enquo(weight)
 
   # if remove is missing replace with empty string
   if(missing(remove)){
@@ -36,7 +32,7 @@ make.topline <- function(variable, mulaw, weight = zwave_weight,
 
   # make list of valid waves
   valid.waves <- mulaw %>%
-    filter(!is.na(!!variable)) %>%
+    filter(!is.na({{variable}})) %>%
     group_by(zwave) %>%
     summarise()
   valid.waves <- valid.waves$zwave
@@ -46,21 +42,21 @@ make.topline <- function(variable, mulaw, weight = zwave_weight,
     # remove waves in which question is not asked
     filter(zwave %in% valid.waves) %>%
     # Convert to ordered factors
-    mutate(!!variable := to_factor(!!variable, sort_levels = "values"),
-           !!variable := forcats::fct_explicit_na(!!variable)) %>%
+    mutate({{variable}} := to_factor({{variable}}, sort_levels = "values"),
+           {{variable}} := forcats::fct_explicit_na({{variable}})) %>%
     # Calculate denominator
-    mutate(total = sum(!!weight),
-           valid.total = sum((!!weight)[!!variable != "(Missing)"])) %>%
+    mutate(total = sum({{weight}}),
+           valid.total = sum(({{weight}})[{{variable}} != "(Missing)"])) %>%
     # Calculate proportions
-    group_by(!!variable) %>%
-    summarise(pct = (sum(!!weight)/first(total))*100,
-              valid.pct = (sum(!!weight)/first(valid.total)*100),
-              n = sum(!!weight)) %>%
+    group_by({{variable}}) %>%
+    summarise(pct = (sum({{weight}})/first(total))*100,
+              valid.pct = (sum({{weight}})/first(valid.total)*100),
+              n = sum({{weight}})) %>%
     ungroup() %>%
     mutate(cum = cumsum(valid.pct),
-           valid.pct = replace(valid.pct, !!variable == "(Missing)", NA),
-           cum = replace(cum, !!variable == "(Missing)", NA)) %>%
-    select(Response = !!variable, Frequency = n, Percent = pct,
+           valid.pct = replace(valid.pct, {{variable}} == "(Missing)", NA),
+           cum = replace(cum, {{variable}} == "(Missing)", NA)) %>%
+    select(Response = {{variable}}, Frequency = n, Percent = pct,
            `Valid Percent` = valid.pct, `Cumulative Percent` = cum) %>%
     # Remove values included in "remove" string
     filter(! str_to_upper(Response) %in% str_to_upper(remove))
