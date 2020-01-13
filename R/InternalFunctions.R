@@ -39,14 +39,15 @@ guess.palette <- function(table, fillPalette = "guess"){
     if(colorlevels[1] %in% c("republican", "rep")){
       # check if 3 category
       if(colorlevels[2] %in% c("independent", "ind")){
-        mlspPalette <- pid3.palette
+        mlspPalette <- pid3.palette()
       } else {
-        mlspPalette <- pid5.palette
+        mlspPalette <- pid5.palette()
       }
       #this covers 3-cat support/oppose question
-    } else if(colorlevels[1] %in% c("approve", "support", "favor", "favorable")){
+    } else if(colorlevels[1] %in% c("approve", "support", "favor", "favorable", "agree")){
       mlspPalette <- fav2.palette()
-    } else if(colorlevels[1] %in% c("strongly approve", "strongly support", "strongly favor", "strongly favorable")){
+    } else if(colorlevels[1] %in% c("strongly approve", "strongly support", "strongly favor",
+                                    "strongly favorable", "strongly agree")){
       mlspPalette <- fav4.palette()
       # this covers head-to-heads against Trump
     } else if(colorlevels[2] %in% c("donald trump", "trump", "walker", "scott walker")) {
@@ -76,5 +77,5 @@ guess.palette <- function(table, fillPalette = "guess"){
     mlspPalette <- RColorBrewer::brewer.pal(n = length(colorlevels), name = fillPalette)
   }
 
-  mlspPalette()
+  mlspPalette
 }
