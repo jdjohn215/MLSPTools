@@ -33,7 +33,6 @@
 make.topline.table <- function(varnames, qtext, remove, mulaw,
                                weight = zwave_weight, n = FALSE){
 
-  weight <- enquo(weight)
 
   # if remove is missing replace with empty string
   if(missing(remove)){
@@ -44,15 +43,15 @@ make.topline.table <- function(varnames, qtext, remove, mulaw,
   d.names <- data.frame(varnames, qtext)
 
   d <- mulaw %>%
-    select(!!weight, varnames) %>%
+    select({{weight}}, varnames) %>%
     mutate_if(is.labelled, to_factor, levels = "prefixed") %>%
-    gather(key = "variable", value = "response", - !!weight) %>%
+    gather(key = "variable", value = "response", - {{weight}}) %>%
     filter(!is.na(response)) %>%
     inner_join(d.names, by = c("variable" = "varnames")) %>%
     group_by(qtext) %>%
-    mutate(total = sum(!!weight)) %>%
+    mutate(total = sum({{weight}})) %>%
     group_by(" " = qtext, response) %>%
-    summarise(pct = (sum(!!weight)/first(total))*100,
+    summarise(pct = (sum({{weight}})/first(total))*100,
               n = first(total)) %>%
     spread(key = response, value = pct, fill = 0) %>%
     # move total row to end
