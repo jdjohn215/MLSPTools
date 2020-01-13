@@ -51,22 +51,22 @@ make.crosstab.wave <- function(x, y, mulaw, remove,
   # Make
   d.output <- mulaw %>%
     # Remove missing cases
-    filter(!is.na(!!x),
-           !is.na(!!y)) %>%
+    filter(!is.na({{x}}),
+           !is.na({{y}})) %>%
     # Convert to ordered factors
-    mutate(!!x := to_factor(!!x, sort_levels = "values"),
-           !!y := to_factor(!!y, sort_levels = "values"),
+    mutate({{x}} := to_factor({{x}}, sort_levels = "values"),
+           {{y}} := to_factor({{y}}, sort_levels = "values"),
            {{date}} := to_factor({{date}}, sort_levels = "values")) %>%
     # Calculate denominator
-    group_by(!!x, !!date) %>%
-    mutate(total = sum(!!weight)) %>%
+    group_by({{x}}, {{date}}) %>%
+    mutate(total = sum({{weight}})) %>%
     # Calculate proportions
-    group_by(!!x, !!y, !!date) %>%
-    summarise(pct = sum(!!weight)/first(total),
+    group_by({{x}}, {{y}}, {{date}}) %>%
+    summarise(pct = sum({{weight}})/first(total),
               n = first(total)) %>%
     # Remove values included in "remove" string
-    filter(!str_to_upper(!!x) %in% str_to_upper(remove),
-           !str_to_upper(!!y) %in% str_to_upper(remove)) %>%
+    filter(!str_to_upper({{x}}) %in% str_to_upper(remove),
+           !str_to_upper({{y}}) %in% str_to_upper(remove)) %>%
     ungroup()
 
   if(n == FALSE){
