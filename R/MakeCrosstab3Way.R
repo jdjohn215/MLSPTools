@@ -37,11 +37,6 @@
 make.crosstab.3way <- function(x, y, z, mulaw, remove,
                                weight = zwave_weight,
                                n = TRUE){
-  # Some Nonstandard Evaluation witchcraft I don't understand
-  x <- enquo(x)
-  y <- enquo(y)
-  z <- enquo(z)
-  weight <- enquo(weight)
 
   # if remove is missing replace with empty string
   if(missing(remove)){
@@ -51,26 +46,26 @@ make.crosstab.3way <- function(x, y, z, mulaw, remove,
   # Make
   d.output <- mulaw %>%
     # Remove missing cases
-    filter(!is.na(!!x),
-           !is.na(!!y),
-           !is.na(!!z)) %>%
+    filter(!is.na({{x}}),
+           !is.na({{y}}),
+           !is.na({{z}})) %>%
     # Convert to ordered factors
-    mutate(!!x := to_factor(!!x, sort_levels = "values"),
-           !!y := to_factor(!!y, sort_levels = "values"),
-           !!z := to_factor(!!z, sort_levels = "values")) %>%
+    mutate({{x}} := to_factor({{x}}, sort_levels = "values"),
+           {{y}} := to_factor({{y}}, sort_levels = "values"),
+           {{z}} := to_factor({{z}}, sort_levels = "values")) %>%
     # Calculate denominator
-    group_by(!!x, !!z) %>%
-    mutate(total = sum(!!weight)) %>%
+    group_by({{x}}, {{z}}) %>%
+    mutate(total = sum({{weight}})) %>%
     # Calculate proportions
-    group_by(!!x, !!y, !!z) %>%
-    summarise(pct = sum(!!weight)/first(total),
+    group_by({{x}}, {{y}}, {{z}}) %>%
+    summarise(pct = sum({{weight}})/first(total),
               n = first(total)) %>%
     # Remove values included in "remove" string
-    filter(!str_to_upper(!!x) %in% str_to_upper(remove),
-           !str_to_upper(!!y) %in% str_to_upper(remove),
-           !str_to_upper(!!z) %in% str_to_upper(remove)) %>%
+    filter(!str_to_upper({{x}}) %in% str_to_upper(remove),
+           !str_to_upper({{y}}) %in% str_to_upper(remove),
+           !str_to_upper({{z}}) %in% str_to_upper(remove)) %>%
     ungroup() %>%
-    pivot_wider(names_from = !!y, values_from = pct,
+    pivot_wider(names_from = {{y}}, values_from = pct,
                 values_fill = list(pct = 0))
 
   if(n == FALSE){
