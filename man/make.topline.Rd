@@ -31,6 +31,6 @@ A dataframe.
 This function returns a topline table of any given variable as a data.frame.
 }
 \examples{
-make.topline(variable = g2, mulaw = orig, remove = c("refused"), format = "long")
+make.topline(variable = g2, mulaw = orig, remove = c("refused"))
 
 }
