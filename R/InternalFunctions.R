@@ -76,5 +76,5 @@ guess.palette <- function(table, fillPalette = "guess"){
     mlspPalette <- RColorBrewer::brewer.pal(n = length(colorlevels), name = fillPalette)
   }
 
-  mlspPalette
+  mlspPalette()
 }
