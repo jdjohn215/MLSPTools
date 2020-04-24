@@ -11,7 +11,6 @@
 #' @return A dataframe.
 #' @export
 #' @import dplyr
-#' @import stringr
 #' @examples
 #' mlsp(mulaw = df, variable = g40, response = 1)
 #' mlsp(mulaw = df, variable = g40, response = "approve")

@@ -11,10 +11,6 @@
 #'
 #' @return A character string
 #' @export
-#' @importFrom stringr str_to_lower
-#' @importFrom stringr str_sub
-#' @importFrom english words
-#' @importFrom english Words
 #'
 #' @examples
 #' print.word(42)
