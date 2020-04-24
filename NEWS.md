@@ -1,4 +1,6 @@
-## Version 0.2.1.9999
+## Version 0.2.1
+###Bug fix###
+escape percent symbol in documentation
 
 ## Version 0.2.0
 
