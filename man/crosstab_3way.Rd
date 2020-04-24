@@ -22,6 +22,10 @@ crosstab_3way(mulaw, x, y, z, weight = zwave_weight, remove = c(""),
 This will not affect any calculations made. The vector is not case-sensitive.}
 
 \item{n}{Logical. If TRUE add a row total column}
+
+\item{pct_type}{one of "row" or "cell"}
+
+\item{format}{one of "wide" or "long}
 }
 \value{
 A dataframe.

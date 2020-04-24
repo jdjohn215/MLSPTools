@@ -6,22 +6,19 @@
 #'  This function returns a crosstab by wave. The resulting data.frame is in long format, suitable
 #'  for making a faceted plot. See the example below
 #'
+#' @param mulaw The data.frame containing the version of the integrated file you wish to use
 #' @param x The independent variable
 #' @param y The dependent variable
 #' @param z The third variable
-#' @param mulaw The data.frame containing the version of the integrated file you wish to use
+#' @param weight The weighting variable, defaults to zwave_weight
 #' @param remove An optional character vector of values to remove from final table (e.g. DK/Ref).
 #' This will not affect any calculations made. The vector is not case-sensitive.
-#' @param weight The weighting variable, defaults to zwave_weight
 #' @param n Logical. If TRUE add a row total column
+#' @param pct_type one of "row" or "cell"
+#' @param format one of "wide" or "long
 #'
 #' @return A dataframe.
 #' @export
-#' @import dplyr
-#' @import stringr
-#' @importFrom labelled to_factor
-#' @importFrom tidyr spread
-#' @importFrom tidyr pivot_wider
 #'
 #' @examples
 #' crosstab_3way(integ, zpid3, g40, ac7)
