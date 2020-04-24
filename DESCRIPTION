@@ -1,7 +1,7 @@
 Package: MLSPTools
 Type: Package
 Title: Internal tools for use with the Marquette Law Poll
-Version: 0.2.1
+Version: 0.2.1.9999
 Author: John Johnson
 Maintainer: The package maintainer <john.d.johnson@marquette.edu>
 Description: Functions for creating standard analysis.
