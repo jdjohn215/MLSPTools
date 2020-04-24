@@ -1,89 +1,29 @@
 #' Make a crosstab of a variable
 #'
-#' \code{moe.crosstab} returns a data.frame a crosstab of two variables along with margins of error
+#' \code{moe_crosstab} returns a data.frame a crosstab of two variables along with margins of error
 #'
-#'  This function returns a crosstab of two supplied variables along with margins of error.
-#'  The resulting data.frame defaults
-#'  to long format, but can be in wide format if format = "wide" is specified.
+#'  this is a wrapper around pollster::moe_crosstab
 #'
-#' @param x The grouping variable
-#' @param y the dependent variable
 #' @param mulaw The data.frame containing the version of the integrated file you wish to use
-#' @param weights The weight variable, defaults to zwave_weight
-#' @param format One of "wide" or "long", defaults to "wide"
+#' @param x The independent variable
+#' @param y The dependent variable
+#' @param weight The weighting variable, defaults to zwave_weight
+#' @param remove An optional character vector of values to remove from final table (e.g. DK/Ref).
+#' This will not affect any calculations made. The vector is not case-sensitive.
+#' @param n logical, if TRUE a column of row totals is included
+#' @param pct_type Controls the kind of percentage values returned. One of "row" or "cell." Column percents are not supported.
+#' @param format one of "long" or "wide"
+#' @param zscore defaults to 1.96, consistent with a 95% confidence interval
 #'
-#' @return A dataframe.
+#' @return A tibble
 #' @export
-#' @import dplyr
-#' @import stringr
-#' @importFrom labelled to_factor
-#' @importFrom tidyr pivot_wider
 #'
 #' @examples
-#' moe.crosstab(zpid3, g40, integ, format = "wide")
-#'
-moe.crosstab <- function(x, y, mulaw, weights = zwave_weight, format = "long"){
-  # calculate design effect for sample comprised of all waves question is present for
-  valid.waves <- mulaw %>%
-    filter(!is.na({{x}}),
-           !is.na({{y}})) %>%
-    mutate(zwave = remove_labels(zwave)) %>%
-    group_by(zwave) %>%
-    summarise() %>%
-    pull()
+#' moe_crosstab(integ, zpid3, g40)
 
-  # this data.frame has the complete waves in which the variables was asked
-  d.deff <- mulaw %>%
-    filter(zwave %in% valid.waves) %>%
-    rename(weights = {{weights}})
-
-  deff <- deff_calc(d.deff$weights)
-
-  output <- mulaw %>%
-    filter(!is.na({{x}}),
-           !is.na({{y}})) %>%
-    mutate({{x}} := to_factor({{x}}),
-           {{y}} := to_factor({{y}})) %>%
-    group_by({{x}}) %>%
-    mutate(total = sum({{weights}}),
-           n.row = length({{weights}})) %>%
-    group_by({{x}}, {{y}}) %>%
-    summarise(observations = sum({{weights}}),
-              pct = observations/first(total),
-              n.row = first(n.row)) %>%
-    ungroup() %>%
-    mutate(moe = sqrt(deff)*1.96*sqrt((pct*(1-pct))/(n.row - 1))*100) %>%
-    mutate(pct = pct*100) %>%
-    select(-n.row)
-
-  if(format == "wide"){
-    output.wide <- output %>%
-      select(-observations) %>%
-      pivot_wider(names_from = {{y}}, values_from = c("pct", "moe"))
-
-    # fix names
-    y.order <- output %>%
-      select({{y}}) %>%
-      pull() %>%
-      levels()
-
-    output.names <- names(output.wide)[2:length(names(output.wide))] %>%
-      tibble() %>%
-      rename(oldNames = 1) %>%
-      mutate(order = (1:n())+1,
-             name = str_sub(oldNames, 5, -1),
-             suffix = str_sub(oldNames, 1, 3),
-             name = factor(name, levels = y.order)) %>%
-      arrange(name) %>%
-      mutate(fixname = paste(name, suffix, sep = "_"))
-
-    output.wide <- output.wide %>%
-      select(1, output.names$order)
-    names(output.wide)[2:length(names(output.wide))] <- output.names$fixname
-
-    output <- output.wide
-  }
-
-  output
+moe_crosstab <- function(mulaw, x, y, weight = zwave_weight,
+                         remove = "", n = TRUE, pct_type = "row",
+                         format = "wide", zscore = 1.96){
+  pollster::moe_crosstab(df = mulaw, x = {{x}}, y = {{y}}, {{weight}}, remove = remove,
+                         n = n, pct_type = pct_type, format = format, zscore =zscore)
 }
-
