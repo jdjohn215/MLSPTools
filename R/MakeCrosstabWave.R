@@ -16,12 +16,8 @@
 #' @param pct_type one of "row" or "cell"
 #' @param format one of "wide" or "long
 #'
-#' @return A dataframe.
+#' @return A tibble
 #' @export
-#' @import dplyr
-#' @import stringr
-#' @importFrom labelled to_factor
-#' @importFrom tidyr spread
 #'
 #' @examples
 #' crosstab_wave(integ, zpid3, g40)

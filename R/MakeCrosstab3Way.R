@@ -16,7 +16,7 @@
 #' @param pct_type one of "row" or "cell"
 #' @param format one of "wide" or "long
 #'
-#' @return A dataframe.
+#' @return A tibble
 #' @export
 #'
 #' @examples
