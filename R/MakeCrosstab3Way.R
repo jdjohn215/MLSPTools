@@ -3,8 +3,7 @@
 #' \code{crosstab_3way} returns a data.frame containing a weighted crosstab of two variables
 #' by wave.
 #'
-#'  This function returns a crosstab by wave. The resulting data.frame is in long format, suitable
-#'  for making a faceted plot. See the example below
+#'  This is a wrapper around pollster::crosstab_3way()
 #'
 #' @param mulaw The data.frame containing the version of the integrated file you wish to use
 #' @param x The independent variable
