@@ -1,6 +1,6 @@
 #' Make a time series of a variable
 #'
-#' \code{make_ts} returns a data.frame containing a time series of a variable
+#' \code{time_series} returns a data.frame containing a time series of a variable
 #'
 #'  This is a wrapper around pollster::crosstab in which x is assumed to be zpollenddate.
 #'  All you have to provide is the y-var to the `variable` argument
@@ -19,9 +19,9 @@
 #' @export
 #'
 #' @examples
-#' make_ts(integ, g40)
+#' time_series(integ, g40)
 #'
-make_ts <- function(mulaw, variable, date = zpollenddate, weight = zwave_weight,
+time_series <- function(mulaw, variable, date = zpollenddate, weight = zwave_weight,
                     remove = "", n = TRUE, pct_type = "row",
                     format = "wide"){
   pollster::crosstab(df = mulaw, x = {{date}}, y = {{variable}}, {{weight}}, remove = remove,
