@@ -1,73 +1,28 @@
 #' Make a time series of a variable
 #'
-#' \code{make.topline} returns a data.frame containing a time series of a variable
+#' \code{topline} returns a data.frame containing a time series of a variable
 #'
-#'  This function returns a topline table of any given variable as a data.frame.
+#'  This is a wrapper around pollster::topline()
 #'
-#' @param variable The variable, unquoted
 #' @param mulaw The data.frame containing the version of the integrated file you wish to use
+#' @param variable The variable, unquoted
 #' @param weight The weight variable, defaults to zwave_weight
+#' @param remove a character string of response values to remove from the output after performing all calculations
 #' @param n Logical, determines if a row total is included or not
-#' @param cumsum Logical, determines if a cumulative percent column is included or not
-#' @param remove an optional vector of response options to remove from the table (after calculating percents).
-#' This is useful when making tables.
+#' @param pct logical, determines if the pct column is included or not
+#' @param valid_pct logical, determines if the valid percent column is included
+#' @param cum_pct Logical, determines if a cumulative percent column is included or not
 #'
-#' @return A dataframe.
+#' @return A tibble
 #' @export
-#' @import dplyr
-#' @import stringr
-#' @importFrom labelled to_factor
-#' @importFrom forcats fct_explicit_na
 #'
 #' @examples
-#' make.topline(variable = g2, mulaw = orig, remove = c("refused"))
+#' topline(integ, g40)
 #'
-make.topline <- function(variable, mulaw, weight = zwave_weight,
-                         n = TRUE, cumsum = TRUE, remove){
-
-  # if remove is missing replace with empty string
-  if(missing(remove)){
-    remove = ""
-  }
-
-  # make list of valid waves
-  valid.waves <- mulaw %>%
-    filter(!is.na({{variable}})) %>%
-    group_by(zwave) %>%
-    summarise()
-  valid.waves <- valid.waves$zwave
-
-  # Make table
-  d.output <- mulaw %>%
-    # remove waves in which question is not asked
-    filter(zwave %in% valid.waves) %>%
-    # Convert to ordered factors
-    mutate({{variable}} := to_factor({{variable}}, sort_levels = "values"),
-           {{variable}} := forcats::fct_explicit_na({{variable}})) %>%
-    # Calculate denominator
-    mutate(total = sum({{weight}}),
-           valid.total = sum(({{weight}})[{{variable}} != "(Missing)"])) %>%
-    # Calculate proportions
-    group_by({{variable}}) %>%
-    summarise(pct = (sum({{weight}})/first(total))*100,
-              valid.pct = (sum({{weight}})/first(valid.total)*100),
-              n = sum({{weight}})) %>%
-    ungroup() %>%
-    mutate(cum = cumsum(valid.pct),
-           valid.pct = replace(valid.pct, {{variable}} == "(Missing)", NA),
-           cum = replace(cum, {{variable}} == "(Missing)", NA)) %>%
-    select(Response = {{variable}}, Frequency = n, Percent = pct,
-           `Valid Percent` = valid.pct, `Cumulative Percent` = cum) %>%
-    # Remove values included in "remove" string
-    filter(! str_to_upper(Response) %in% str_to_upper(remove))
-
-  if(n == FALSE){
-    d.output <- select(d.output, -`Frequency`)
-  }
-
-  if(cumsum == FALSE){
-    d.output <- select(d.output, -`Cumulative Percent`)
-  }
-
-  d.output
+topline <- function(mulaw, variable, weight = zwave_weight,
+                         remove = c(""), n = TRUE, pct = TRUE,
+                         valid_pct = TRUE, cum_pct = TRUE){
+  pollster::topline(df = mulaw, variable = {{variable}}, weight = {{weight}},
+                    remove = remove, n = n, pct = pct, valid_pct = valid_pct,
+                    cum_pct = cum_pct)
 }

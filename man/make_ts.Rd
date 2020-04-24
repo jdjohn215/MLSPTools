@@ -29,7 +29,7 @@ This will not affect any calculations made. The vector is not case-sensitive.}
 A tibble
 }
 \description{
-\code{make.ts} returns a data.frame containing a time series of a variable
+\code{make_ts} returns a data.frame containing a time series of a variable
 }
 \details{
 This is a wrapper around pollster::crosstab in which x is assumed to be zpollenddate.

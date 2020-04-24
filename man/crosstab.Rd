@@ -26,7 +26,7 @@ This will not affect any calculations made. The vector is not case-sensitive.}
 \item{format}{one of "long" or "wide"}
 }
 \value{
-A dataframe.
+A tibble
 }
 \description{
 \code{crosstab} returns a data.frame containing a weighted crosstab of two variables
