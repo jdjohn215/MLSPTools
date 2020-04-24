@@ -1,4 +1,4 @@
-## Version 0.2.0.9000
+## Version 0.2.0
 
 ### Breaking Changes
 The `make.` prefix to functions is removed. Functions are now wrappers around `pollster` functions.
