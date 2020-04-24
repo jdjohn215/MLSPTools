@@ -24,10 +24,10 @@
 
 moe_crosstab_wave <- function(mulaw, x, y, z = zpollenddate, weight = zwave_weight,
                           remove = c(""), n = TRUE, pct_type = "row",
-                          format = "long"){
+                          format = "long", zscore = 1.96){
 
   pollster::moe_crosstab_3way(df = mulaw, x = {{x}}, y = {{y}}, z = {{z}}, weight = {{weight}},
                           remove = remove, n = n, pct_type = pct_type,
-                          format = format)
+                          format = format, zscore = zscore)
 
 }

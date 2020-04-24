@@ -5,7 +5,8 @@
 \title{Make a crosstab by wave of a variable}
 \usage{
 moe_crosstab_wave(mulaw, x, y, z = zpollenddate, weight = zwave_weight,
-  remove = c(""), n = TRUE, pct_type = "row", format = "long")
+  remove = c(""), n = TRUE, pct_type = "row", format = "long",
+  zscore = 1.96)
 }
 \arguments{
 \item{mulaw}{The data.frame containing the version of the integrated file you wish to use}
