@@ -14,7 +14,7 @@
 #' @param n logical, if TRUE a column of row totals is included
 #' @param pct_type Controls the kind of percentage values returned. One of "row," "cell," or "column."
 #' @param format one of "long" or "wide"
-#' @param zscore defaults to 1.96, consistent with a 95% confidence interval
+#' @param zscore defaults to 1.96, consistent with a 95\% confidence interval
 #'
 #' @return A tibble
 #' @export

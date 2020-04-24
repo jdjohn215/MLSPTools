@@ -15,7 +15,7 @@
 #' @param n Logical. If TRUE add a row total column
 #' @param pct_type one of "row" or "cell"
 #' @param format one of "wide" or "long
-#' @param zscore defaults to 1.96, consistent with a 95% confidence interval
+#' @param zscore defaults to 1.96, consistent with a 95\% confidence interval
 #'
 #' @return A tibble
 #' @export

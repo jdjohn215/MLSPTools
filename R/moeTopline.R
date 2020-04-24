@@ -12,7 +12,7 @@
 #' @param pct logical, determines if the pct column is included or not
 #' @param valid_pct logical, determines if the valid percent column is included
 #' @param cum_pct Logical, determines if a cumulative percent column is included or not
-#' @param zscore defaults to 1.96, consistent with a 95% confidence interval
+#' @param zscore defaults to 1.96, consistent with a 95\% confidence interval
 #'
 #' @return A tibble
 #' @export

@@ -25,7 +25,7 @@ moe_topline(mulaw, variable, weight = zwave_weight, remove = c(""),
 
 \item{cum_pct}{Logical, determines if a cumulative percent column is included or not}
 
-\item{zscore}{defaults to 1.96, consistent with a 95% confidence interval}
+\item{zscore}{defaults to 1.96, consistent with a 95\% confidence interval}
 }
 \value{
 A tibble
