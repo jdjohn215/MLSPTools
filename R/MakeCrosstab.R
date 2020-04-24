@@ -1,6 +1,6 @@
 #' Make a weighted crosstab of row proportions
 #'
-#' \code{make.crosstab} returns a data.frame containing a weighted crosstab of two variables
+#' \code{crosstab} returns a data.frame containing a weighted crosstab of two variables
 #'
 #'  This is a wrapper around pollster::crosstab()
 #'
@@ -18,9 +18,9 @@
 #' @export
 #'
 #' @examples
-#' make.crosstab(mulaw = df, x = zpid3, y = g40v2, remove = c("don't know", "refused"))
+#' crosstab(mulaw = df, x = zpid3, y = g40v2, remove = c("don't know", "refused"))
 
-make.crosstab <- function(mulaw, x, y, weight = zwave_weight,
+crosstab <- function(mulaw, x, y, weight = zwave_weight,
                           remove = "", n = TRUE, pct_type = "row",
                           format = "wide"){
   pollster::crosstab(df = mulaw, x = {{x}}, y = {{y}}, {{weight}}, remove = remove,
