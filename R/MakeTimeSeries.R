@@ -14,6 +14,7 @@
 #' @param n logical, if TRUE a column of row totals is included
 #' @param pct_type Controls the kind of percentage values returned. One of "row," "cell," or "column."
 #' @param format one of "long" or "wide"
+#' @param ... further arguments passed to pollster::crosstab, such as unwt_n
 #'
 #' @return A tibble
 #' @export
@@ -23,7 +24,7 @@
 #'
 time_series <- function(mulaw, variable, date = zpollenddate, weight = zwave_weight,
                     remove = "", n = TRUE, pct_type = "row",
-                    format = "wide"){
+                    format = "wide", ...){
   pollster::crosstab(df = mulaw, x = {{date}}, y = {{variable}}, {{weight}}, remove = remove,
-                     n = n, pct_type = pct_type, format = format)
+                     n = n, pct_type = pct_type, format = format, ... = ...)
 }

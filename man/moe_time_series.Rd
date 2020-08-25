@@ -4,9 +4,18 @@
 \alias{moe_time_series}
 \title{Make a topline by wave of a variable}
 \usage{
-moe_time_series(mulaw, variable, date = zpollenddate,
-  weight = zwave_weight, remove = "", n = TRUE, pct_type = "row",
-  format = "long", zscore = 1.96)
+moe_time_series(
+  mulaw,
+  variable,
+  date = zpollenddate,
+  weight = zwave_weight,
+  remove = "",
+  n = TRUE,
+  pct_type = "row",
+  format = "long",
+  zscore = 1.96,
+  ...
+)
 }
 \arguments{
 \item{mulaw}{The data.frame containing the version of the integrated file you wish to use}
@@ -27,6 +36,8 @@ This will not affect any calculations made. The vector is not case-sensitive.}
 \item{format}{one of "long" or "wide"}
 
 \item{zscore}{defaults to 1.96, consistent with a 95\% confidence interval}
+
+\item{...}{further arguments passed to pollster::moe_crosstab, such as unwt_n}
 }
 \value{
 A tibble

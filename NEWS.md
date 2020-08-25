@@ -1,4 +1,5 @@
-## Version 0.2.1.9999
+## Version 0.2.2
+functions now pass additional arguments to pollster via `...`. This is particularly useful for passing `unwt_n = TRUE` to crosstab functions.
 
 ## Version 0.2.1
 ###Bug fix###

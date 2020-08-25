@@ -4,8 +4,16 @@
 \alias{topline}
 \title{Make a time series of a variable}
 \usage{
-topline(mulaw, variable, weight = zwave_weight, remove = c(""),
-  n = TRUE, pct = TRUE, valid_pct = TRUE, cum_pct = TRUE)
+topline(
+  mulaw,
+  variable,
+  weight = zwave_weight,
+  remove = c(""),
+  n = TRUE,
+  pct = TRUE,
+  valid_pct = TRUE,
+  cum_pct = TRUE
+)
 }
 \arguments{
 \item{mulaw}{The data.frame containing the version of the integrated file you wish to use}

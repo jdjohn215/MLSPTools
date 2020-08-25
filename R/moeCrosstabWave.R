@@ -15,6 +15,7 @@
 #' @param pct_type one of "row" or "cell"
 #' @param format one of "wide" or "long
 #' @param zscore defaults to 1.96, consistent with a 95\% confidence interval
+#' @param ... further arguments passed to pollster::moe_crosstab_3way, such as unwt_n
 #'
 #' @return A tibble
 #' @export
@@ -24,10 +25,10 @@
 
 moe_crosstab_wave <- function(mulaw, x, y, z = zpollenddate, weight = zwave_weight,
                           remove = c(""), n = TRUE, pct_type = "row",
-                          format = "long", zscore = 1.96){
+                          format = "long", zscore = 1.96, ...){
 
   pollster::moe_crosstab_3way(df = mulaw, x = {{x}}, y = {{y}}, z = {{z}}, weight = {{weight}},
                           remove = remove, n = n, pct_type = pct_type,
-                          format = format, zscore = zscore)
+                          format = format, zscore = zscore, ... = ...)
 
 }

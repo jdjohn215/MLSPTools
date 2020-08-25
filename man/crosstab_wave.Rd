@@ -4,8 +4,18 @@
 \alias{crosstab_wave}
 \title{Make a weighted crosstab of row proportions, by wave}
 \usage{
-crosstab_wave(mulaw, x, y, z = zpollenddate, weight = zwave_weight,
-  remove = c(""), n = TRUE, pct_type = "row", format = "wide")
+crosstab_wave(
+  mulaw,
+  x,
+  y,
+  z = zpollenddate,
+  weight = zwave_weight,
+  remove = c(""),
+  n = TRUE,
+  pct_type = "row",
+  format = "wide",
+  ...
+)
 }
 \arguments{
 \item{mulaw}{The data.frame containing the version of the integrated file you wish to use}
@@ -26,6 +36,8 @@ This will not affect any calculations made. The vector is not case-sensitive.}
 \item{pct_type}{one of "row" or "cell"}
 
 \item{format}{one of "wide" or "long}
+
+\item{...}{further arguments passed to pollster::crosstab_3way, such as unwt_n}
 }
 \value{
 A tibble

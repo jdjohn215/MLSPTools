@@ -4,9 +4,17 @@
 \alias{moe_topline}
 \title{Make a topline of a variable}
 \usage{
-moe_topline(mulaw, variable, weight = zwave_weight, remove = c(""),
-  n = TRUE, pct = TRUE, valid_pct = TRUE, cum_pct = TRUE,
-  zscore = 1.96)
+moe_topline(
+  mulaw,
+  variable,
+  weight = zwave_weight,
+  remove = c(""),
+  n = TRUE,
+  pct = TRUE,
+  valid_pct = TRUE,
+  cum_pct = TRUE,
+  zscore = 1.96
+)
 }
 \arguments{
 \item{mulaw}{The data.frame containing the version of the integrated file you wish to use}

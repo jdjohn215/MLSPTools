@@ -4,8 +4,7 @@
 \alias{compare.toplines}
 \title{Make a dot and ribbon plot comparing symmetrical questions}
 \usage{
-compare.toplines(varlist, vartext = NULL, mulaw, sortResponse,
-  remove = NULL)
+compare.toplines(varlist, vartext = NULL, mulaw, sortResponse, remove = NULL)
 }
 \arguments{
 \item{varlist}{a vector of quoted variable names}

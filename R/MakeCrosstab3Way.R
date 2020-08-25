@@ -15,6 +15,7 @@
 #' @param n Logical. If TRUE add a row total column
 #' @param pct_type one of "row" or "cell"
 #' @param format one of "wide" or "long
+#' @param ... further arguments passed to pollster::crosstab, such as unwt_n
 #'
 #' @return A tibble
 #' @export
@@ -25,9 +26,9 @@
 
 crosstab_3way <- function(mulaw, x, y, z, weight = zwave_weight,
                                remove = c(""), n = TRUE, pct_type = "row",
-                               format = "wide"){
+                               format = "wide", ...){
 
   pollster::crosstab_3way(df = mulaw, x = {{x}}, y = {{y}}, z = {{z}}, weight = {{weight}},
                           remove = remove, n = n, pct_type = pct_type,
-                          format = format)
+                          format = format, ... = ...)
 }

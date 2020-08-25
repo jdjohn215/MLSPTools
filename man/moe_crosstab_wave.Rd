@@ -4,9 +4,19 @@
 \alias{moe_crosstab_wave}
 \title{Make a crosstab by wave of a variable}
 \usage{
-moe_crosstab_wave(mulaw, x, y, z = zpollenddate, weight = zwave_weight,
-  remove = c(""), n = TRUE, pct_type = "row", format = "long",
-  zscore = 1.96)
+moe_crosstab_wave(
+  mulaw,
+  x,
+  y,
+  z = zpollenddate,
+  weight = zwave_weight,
+  remove = c(""),
+  n = TRUE,
+  pct_type = "row",
+  format = "long",
+  zscore = 1.96,
+  ...
+)
 }
 \arguments{
 \item{mulaw}{The data.frame containing the version of the integrated file you wish to use}
@@ -29,6 +39,8 @@ This will not affect any calculations made. The vector is not case-sensitive.}
 \item{format}{one of "wide" or "long}
 
 \item{zscore}{defaults to 1.96, consistent with a 95\% confidence interval}
+
+\item{...}{further arguments passed to pollster::moe_crosstab_3way, such as unwt_n}
 }
 \value{
 A tibble

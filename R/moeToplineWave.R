@@ -15,6 +15,7 @@
 #' @param pct_type Controls the kind of percentage values returned. One of "row," "cell," or "column."
 #' @param format one of "long" or "wide"
 #' @param zscore defaults to 1.96, consistent with a 95\% confidence interval
+#' @param ... further arguments passed to pollster::moe_crosstab, such as unwt_n
 #'
 #' @return A tibble
 #' @export
@@ -23,7 +24,7 @@
 #' moe_time_series(integ, g40)
 moe_time_series <- function(mulaw, variable, date = zpollenddate, weight = zwave_weight,
                     remove = "", n = TRUE, pct_type = "row",
-                    format = "long", zscore = 1.96){
+                    format = "long", zscore = 1.96, ...){
   pollster::moe_crosstab(df = mulaw, x = {{date}}, y = {{variable}}, {{weight}}, remove = remove,
-                     n = n, pct_type = pct_type, format = format, zscore = zscore)
+                     n = n, pct_type = pct_type, format = format, zscore = zscore, ... = ...)
 }

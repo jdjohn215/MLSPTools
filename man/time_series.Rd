@@ -4,9 +4,17 @@
 \alias{time_series}
 \title{Make a time series of a variable}
 \usage{
-time_series(mulaw, variable, date = zpollenddate,
-  weight = zwave_weight, remove = "", n = TRUE, pct_type = "row",
-  format = "wide")
+time_series(
+  mulaw,
+  variable,
+  date = zpollenddate,
+  weight = zwave_weight,
+  remove = "",
+  n = TRUE,
+  pct_type = "row",
+  format = "wide",
+  ...
+)
 }
 \arguments{
 \item{mulaw}{The data.frame containing the version of the integrated file you wish to use}
@@ -25,6 +33,8 @@ This will not affect any calculations made. The vector is not case-sensitive.}
 \item{pct_type}{Controls the kind of percentage values returned. One of "row," "cell," or "column."}
 
 \item{format}{one of "long" or "wide"}
+
+\item{...}{further arguments passed to pollster::crosstab, such as unwt_n}
 }
 \value{
 A tibble
